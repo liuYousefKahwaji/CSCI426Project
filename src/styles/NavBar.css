@@ -1,0 +1,62 @@
+.navDiv {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        transition: 0.3s;
+        background: #2e3a7a;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+}
+
+.navDiv td {
+        padding: 10px;
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold;
+        color: white;
+        cursor: pointer;
+        transition: 0.2s;
+        background-color: #2e3a7a;
+}
+
+.navItem a {
+        text-decoration: none;
+        background-color: #2e3a7a;
+}
+
+.navOpen {
+        width: 20vw;
+}
+
+.navClosed {
+        width: 3.5vw;
+}
+
+
+.navButton {
+        border-radius: 100%;
+        text-align: center;
+        width: 32px;
+        height: 32px;
+        font-size: 20px;
+        vertical-align: middle;
+        margin: 10px;
+        transition: 0.3s;
+        position: relative;
+        z-index: 3;
+        vertical-align: middle;
+}
+
+.opaque {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: black;
+        transition: 0.3s;
+        z-index: 1;
+}

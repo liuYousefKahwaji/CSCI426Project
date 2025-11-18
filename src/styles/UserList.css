@@ -1,0 +1,155 @@
+
+.user-list {
+	padding: 24px;
+	box-sizing: border-box;
+	width: 100%;
+    text-align: center;
+}
+
+.user-list h1 {
+    text-align: center;
+	margin: 0 0 16px 0;
+	font-size: 1.3rem;
+	color: #2e3a7a;
+}
+
+.user-controls {
+	width: 100%;
+	position: relative;
+	list-style: none;
+}
+
+.user-controls li {
+	margin: 0 10px;
+	padding: 1%;
+	padding-right: 40%;
+}
+.user-controls .btn-select-all,
+.user-controls .btn-delete-selected {
+	padding: 8px 16px;
+	border: none;
+	border-radius: 4px;
+	font-size: 0.95rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.2s;
+}
+
+.user-controls .btn-select-all {
+	background: #5280f5;
+	color: #fff;
+}
+
+.user-controls .btn-select-all:hover:not([disabled]) {
+	background: #3e5fd9;
+}
+
+.user-controls .btn-delete-selected {
+	background: #d9534f;
+	color: #fff;
+}
+
+.user-controls .btn-delete-selected:hover:not([disabled]) {
+	background: #c9423f;
+}
+
+.user-controls button[disabled] {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+.user-controls .selection-count {
+	font-weight: 600;
+	color: #2e3a7a;
+	min-width: 120px;
+}
+
+.user-table {
+	background: #fff;
+    text-align: center;
+	position: fixed;
+	width: 60%;
+}
+
+.user-table thead th {
+	padding: 10px 14px;
+	background: #5280f5;
+	color: #fff;
+	font-weight: 700;
+	font-size: 0.95rem;
+	border-bottom: 1px solid #e6eaf3;
+}
+
+.user-table .checkbox-col {
+	width: 50px;
+}
+
+.user-table thead .checkbox-col,
+.user-table tbody .checkbox-col {
+	text-align: center;
+	padding: 10px 8px;
+}
+
+.user-table input[type="checkbox"] {
+	cursor: pointer;
+	width: 18px;
+	height: 18px;
+	accent-color: #5280f5;
+}
+
+.user-table input[type="checkbox"]:disabled {
+	cursor: not-allowed;
+	opacity: 0.5;
+}
+
+.user-table tbody td {
+	padding: 10px 14px;
+	border-bottom: 1px solid #eef2fb;
+	font-size: 0.95rem;
+	color: #000000;
+}
+
+.user-table tbody tr {
+	background: #fbfbff;
+	transition: background-color 0.15s;
+}
+
+.user-table tbody tr.selected {
+	background: #d6e4ff;
+}
+
+.user-table tbody tr.selected td {
+	background: #d6e4ff;
+	color: #1a3a80;
+	font-weight: 500;
+}
+
+.user-table tbody tr:hover td {
+	background: #7ca2ee;
+    color: white;
+}
+
+.user-table tbody tr.selected:hover td {
+	background: #5280f5;
+}
+
+.user-table tbody td button {
+	background: #d9534f;
+	color: #fff;
+	border: none;
+	padding: 6px 10px;
+	border-radius: 4px;
+	cursor: pointer;
+	font-size: 0.9rem;
+	transition: all 0.2s;
+}
+
+.user-table tbody td button:hover:not([disabled]) {
+	background: #c9423f;
+}
+
+.user-table tbody td button[disabled] {
+	background: #cfcfcf;
+	cursor: not-allowed;
+	opacity: 0.6;
+}

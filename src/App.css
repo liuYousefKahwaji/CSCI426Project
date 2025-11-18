@@ -1,0 +1,39 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+
+* {
+  background-color: #3d4c9c;
+  color: black;
+}
+
+.App{
+  display: grid;
+  grid-template-columns: repeat(5, minmax(100px, 1fr));
+  height: 100vh;
+}
+
+.App-nav{
+  position: relative;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 200;
+}
+
+button {
+  text-align: center;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background-color: #5555ff;
+}
+
+button:hover {
+  transition: 0.3s;
+  transform: scale(1.1);
+}
