@@ -17,11 +17,11 @@ function NavBar({ auth, user }) {
             {list.map((item, index) => (
               <tr key={index} className="navRow" >
                 <td className={"navItem"} style={{
-                  cursor: auth || (index === 1 || index === 2)
+                  cursor: auth || (index === 1 || index === 2 || index === 0)
                     ? 'pointer'
                     : 'not-allowed'
                 }}><Link style={{
-                  cursor: auth || (index === 1 || index === 2)
+                  cursor: auth || (index === 1 || index === 2 || index === 0)
                     ? 'pointer'
                     : 'not-allowed'
                 }} to={'/' + item.toLowerCase()}>{item}</Link></td>

@@ -1,15 +1,57 @@
-.home{
+.home {
     text-align: center;
     background-image: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2dma2VidDNndjZlang5NDQxOXoxMGxnZ2h6cHBhanh1NTR2Z2ZiciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JtBZm3Getg3dqxK0zP/giphy.gif");
     position: absolute;
     width: 100vw;
     height: 100vh;
     background-size: cover;
-    width: 100vw;
-    height: 100vh;
     background-position: center center;
+    overflow: hidden; 
 }
 
-.home h1, .home h2{
+.home h1,.home h2 {
     color: purple;
+    z-index: 10;
+}
+
+.preview {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr; 
+    gap: 10px; 
+    margin-top: 2%;
+    width: 50vw; 
+    height: 50vh; 
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 20px;
+    background-color: rgba(65, 65, 65, 0.8);
+    padding: 10px;
+}
+
+.preview > a {
+    text-decoration: none;
+    color: inherit;
+    display: contents; 
+}
+
+.homeItem {
+    background-color: rgb(150, 150, 150);
+    opacity: 0.9; 
+    border-radius: 10px;
+    transition: 0.3s;
+    padding: 10px;
+    text-align: left; 
+    overflow: hidden; 
+}
+
+.homeItem:hover {
+    background-color: rgb(110, 110, 110);
+    opacity: 1;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative; 
+    transform: scale(1.05); 
+    z-index: 4; 
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
 }

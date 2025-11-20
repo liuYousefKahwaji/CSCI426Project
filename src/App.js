@@ -24,10 +24,12 @@ function App() {
         <Routes>
           <Route path='/login' element={auth ? <Navigate to="/home" replace /> : <Auth login={true} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} />} />
           <Route path="/" element={authRoute(<Navigate to="/home" replace />, false)} />
-          <Route path="/home" element={authRoute(<Home />, false)}/>
+          <Route path="/home" element={<Home />}/>
           <Route path='/logout' element={<Logout setAuth={setAuth} setUser={setUser}/>} />
           <Route path='/register' element={<Auth login={false} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} />} />
           <Route path='/userlist' element={authRoute(<UserList userList={userList} setUserList={setUserList}/>, true)}/>
+          <Route path='/stocks' element={authRoute(<div><h1>Stocks Page - Under Construction</h1></div>, false)}/>
+          <Route path='/profile' element={authRoute(<div><h1>Profile Page - Under Construction</h1></div>, false)}/>
         </Routes>
       </Router>
     </div>
