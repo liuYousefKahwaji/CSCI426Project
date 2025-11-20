@@ -18,6 +18,7 @@ function App() {
   }
   return (
     <div className="App">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       <Router>
         <div className="App-nav" ><NavBar auth={auth} user={user}/></div>
         <Routes>
@@ -26,7 +27,7 @@ function App() {
           <Route path="/home" element={authRoute(<Home />, false)}/>
           <Route path='/logout' element={<Logout setAuth={setAuth} setUser={setUser}/>} />
           <Route path='/register' element={<Auth login={false} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} />} />
-          <Route path='/userlist' element={authRoute(<UserList userList={userList} setUserList={setUserList}/>, true)} />
+          <Route path='/userlist' element={authRoute(<UserList userList={userList} setUserList={setUserList}/>, true)}/>
         </Routes>
       </Router>
     </div>

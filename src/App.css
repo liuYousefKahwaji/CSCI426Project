@@ -5,9 +5,11 @@ html, body {
   height: 100%;
 }
 
+body {
+  background: #101010;
+}
 * {
-  background-color: #3d4c9c;
-  color: black;
+  color: #EAEAEA;
 }
 
 .App{
@@ -30,10 +32,27 @@ button {
   padding: 10px;
   border-radius: 8px;
   border: none;
-  background-color: #5555ff;
+  background: rgb(68, 36, 97);
+  transition: 0.3s;
 }
 
 button:hover {
   transition: 0.3s;
   transform: scale(1.1);
+  box-shadow: 0px 0px 10px #ffffff;
+  background: rgb(98, 51, 141);
+}
+
+input {
+  font-size: 16px;
+  padding: 5px;
+  border-radius: 8px;
+  border: 2px solid rgb(68, 36, 97);
+  transition: 0.3s;
+  background: #262626;
+}
+
+img, video, iframe, table {
+    max-width: 100%; /* Never let media be wider than its parent */
+    height: auto;  /* Prevent stretching/distortion */
 }

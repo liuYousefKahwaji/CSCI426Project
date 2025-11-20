@@ -7,5 +7,5 @@ export default function Logout({ setAuth, setUser }) {
     setAuth(false);
   }, [setAuth,setUser]);
 
-  return <Navigate to="/login" replace />;
+  return <Navigate to="/login" replace/>;
 }

@@ -1,0 +1,15 @@
+.home{
+    text-align: center;
+    background-image: url("https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExN2dma2VidDNndjZlang5NDQxOXoxMGxnZ2h6cHBhanh1NTR2Z2ZiciZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/JtBZm3Getg3dqxK0zP/giphy.gif");
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    background-position: center center;
+}
+
+.home h1, .home h2{
+    color: purple;
+}

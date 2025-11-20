@@ -13,15 +13,17 @@
 
 .input:hover{
   outline: none;
-  border: 2px solid #5555ff;
+  border: 2px solid #262626;
 }
 
 .authTable {
   width: auto;
-  background: #2e3a7a;
+  background: #262626;
   text-align: center;
   border-radius: 20px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  box-shadow:
+  0 20px 40px rgba(0, 0, 0, 0.6),
+  0 0 36px rgba(255, 255, 255, 0.22);
 }
 
 img:hover {
@@ -30,12 +32,12 @@ img:hover {
 }
 
 .authTable td, .authTable h1 ,.authTable td a{
-    background-color: #2e3a7a;
+    background-color: #262626;
 }
 
 .authTable h1 {
     position: relative;
-    color: rgb(180, 203, 255);
+    color: #dbcaf1;
     top: -10px;
     font-size: 36px;
 }
@@ -44,8 +46,8 @@ img:hover {
 .errorCell {
   height: 30px;
   text-align: center;
-  background-color: #2e3a7a; 
-  color: darkred;
+  background-color: #262626; 
+  color: rgb(255, 0, 0);
 
   opacity: 0;
   visibility: hidden;
@@ -58,4 +60,11 @@ img:hover {
   visibility: visible;
 }
 
+.switchAuth a:hover {
+  color: purple;
+  transition: 0.2s;
+}
 
+.switchAuth a{
+  transition: 0.2s;
+}
