@@ -2,30 +2,39 @@ import React from "react";
 import "../styles/Home.css";
 import { Link } from "react-router-dom";
 
-function Home() {
-  const homeList = [
-    { title: "Welcome to Home Page!", desc: "This is the home page of the application.", link: "/home" },
-    { title: "Navigation Menu", desc: "Use the navigation menu on the left to explore different sections.", link: "/home" },
-    { title: "Preview Area", desc: "This area can be used to preview content.", link: "/home" },
-    { title: "User Authentication", desc: "Login or register to access more features.", link: "/logout" },
-    { title: "Admin Features", desc: "Admins can manage users and access additional functionalities.", link: "/userlist" },
-    { title: "Responsive Design", desc: "The application is designed to be responsive and user-friendly.", link: "/home" },
-  ];
+function Home({ auth, stockList }) {
+  const selectList = [...stockList].slice(0, 4);
   return (
     <div className="home">
-      <h1 style={{ position: 'relative', }}>Welcome to Home Page!</h1>
-      <h2>Features</h2>
-      <div className="preview">
-        {
-          homeList.map((item, index) => (
-            <Link key={index} to={item.link} >
-              <div key={index} className="homeItem">
-                <h2 style={{ textDecoration: item.link==='/home'?'none':'underline', color: 'inherit' }}>{item.title}</h2>
-                <p>{item.desc}</p>
+      <div className="homeTop">
+        <div className="topText">
+          <h1>Trade Smarter, Invest Better</h1>
+          <h2>Access real-time market data and make informed investment decisions</h2>
+        </div>
+        <div className="topButtons">
+          <Link to={auth ? '/profile' : 'login'}><button>Get Started</button></Link>
+          <Link to='/stocks'><button className="homeBtn">Browse Stocks</button></Link>
+        </div>
+      </div>
+      <div className="homeBottom">
+        <h1>Featured Stocks</h1>
+        <div className="bottomGrid">
+          {
+            selectList.map((item, index) => (
+              <div key={index} className="gridElement">
+                <div className="company">{item.company}</div>
+                <div className="ticker">{item.ticker}</div>
+                <div className="price">${item.price}</div>
+                <div
+                  className="change"
+                  style={{ color: item.change >= 0 ? "green" : "red" }}
+                >
+                  {item.change >= 0 ? `+${item.change}` : item.change}
+                </div>
               </div>
-            </Link>
-          ))
-        }
+            ))
+          }
+        </div>
       </div>
     </div>
   );

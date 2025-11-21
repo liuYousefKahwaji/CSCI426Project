@@ -5,31 +5,46 @@ import Auth from './components/Auth';
 import Home from './pages/Home';
 import Logout from './components/Logout';
 import UserList from './pages/UserList';
+import Profile from './pages/Profile';
+import Stocks from './pages/Stocks';
+
 import { useState } from 'react';
 import { Navigate } from "react-router-dom";
 
 function App() {
-  const [auth, setAuth] = useState(false);
-  const [userList, setUserList] = useState([{ name: 'admin', pass: 'admin' , admin: true },{ name: 'test1', pass: '123' , admin: false },{ name: 'test2', pass: '321' , admin: false }]);
-  const [user, setUser] = useState({ name: '', pass: '' , admin: false });
+  const [auth, setAuth] = useState(true);
+  const [userList, setUserList] = useState([{ name: 'admin', pass: 'admin', admin: true, wallet: 10000 }, { name: 'test1', pass: '123', admin: false, wallet: 1000 }, { name: 'test2', pass: '321', admin: false, wallet: 100 }]);
+  const [user, setUser] = useState({ name: 'admin', pass: 'admin', admin: true, wallet: 10000 });
+  const [stockList, setStockList] = useState([
+    { company: "Apple Inc.", ticker: "AAPL", price: 178.45, change: 2.34 },
+    { company: "Microsoft Corp.", ticker: "MSFT", price: 374.58, change: -1.24 },
+    { company: "Tesla Inc.", ticker: "TSLA", price: 238.72, change: 5.67 },
+    { company: "Amazon.com Inc.", ticker: "AMZN", price: 145.33, change: 3.21 },
+    { company: "NVIDIA Corp.", ticker: "NVDA", price: 495.22, change: 8.45 },
+    { company: "Alphabet Inc.", ticker: "GOOGL", price: 138.67, change: -0.89 },
+    { company: "Meta Platforms", ticker: "META", price: 328.45, change: 4.12 },
+    { company: "Netflix Inc.", ticker: "NFLX", price: 445.78, change: -2.34 },
+  ]);
+
   const authRoute = (Component, admin) => {
-    if (!admin)return auth ? Component : <Navigate to="/login" />;
-    if(admin) return auth && user.admin ? Component : <Navigate to="/login" />;
+    if (!admin) return auth ? Component : <Navigate to="/login" />;
+    if (admin) return auth && user.admin ? Component : <Navigate to="/login" />;
   }
   return (
     <div className="App">
       <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       <Router>
-        <div className="App-nav" ><NavBar auth={auth} user={user}/></div>
+        <NavBar auth={auth} user={user} />
         <Routes>
           <Route path='/login' element={auth ? <Navigate to="/home" replace /> : <Auth login={true} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} />} />
           <Route path="/" element={authRoute(<Navigate to="/home" replace />, false)} />
-          <Route path="/home" element={<Home />}/>
-          <Route path='/logout' element={<Logout setAuth={setAuth} setUser={setUser}/>} />
+          <Route path="/CSCI426Project" element={<Navigate to="/home" replace />} />
+          <Route path="/home" element={<Home auth={auth} stockList={stockList} />} />
+          <Route path='/logout' element={<Logout setAuth={setAuth} setUser={setUser} />} />
           <Route path='/register' element={<Auth login={false} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} />} />
-          <Route path='/userlist' element={authRoute(<UserList userList={userList} setUserList={setUserList}/>, true)}/>
-          <Route path='/stocks' element={authRoute(<div><h1>Stocks Page - Under Construction</h1></div>, false)}/>
-          <Route path='/profile' element={authRoute(<div><h1>Profile Page - Under Construction</h1></div>, false)}/>
+          <Route path='/userlist' element={authRoute(<UserList userList={userList} setUserList={setUserList} />, true)} />
+          <Route path='/stocks' element={authRoute(<Stocks/>, false)} />
+          <Route path='/profile' element={authRoute(<Profile user={user}/>, false)} />
         </Routes>
       </Router>
     </div>

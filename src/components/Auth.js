@@ -26,7 +26,7 @@ function Auth({ login, auth, setAuth, userList, setUserList, user, setUser }) {
                 alert(errmsgs[2]);
                 return;
             } else {
-                const newUser = { name: user.name, pass: user.pass, admin: false };
+                const newUser = { name: user.name, pass: user.pass, admin: false, wallet: 0 };
                 setUserList([...userList, newUser]);
                 setUser(newUser);
                 setAuth(true);
@@ -52,20 +52,18 @@ function Auth({ login, auth, setAuth, userList, setUserList, user, setUser }) {
 
     return (
         <div className='auth'>
-            <table className='authTable' cellSpacing={32} width={'20%'} onKeyDown={(event) => { if (event.key === 'Enter') addUser() }}>
+            <table className='authTable' cellSpacing={32} width={'40%'} onKeyDown={(event) => { if (event.key === 'Enter') addUser() }}>
                 <tbody>
-                    <tr><td colSpan={2}><h1>{login ? 'Login' : 'Register'}</h1></td></tr>
-                    <tr><td>Username</td><td><input value={user.name} onChange={(e) => setUser({ name: e.target.value, pass: user.pass, admin: false })} /></td></tr>
+                    <tr ><td colSpan={2} className='authHead'><h1>{login ? 'Login' : 'Register'}</h1><h2>{login ? 'Sign in with your account' : 'Create an account'}</h2></td></tr>
+                    <tr><td><input className='authInputs' placeholder='Username' value={user.name} onChange={(e) => setUser({ name: e.target.value, pass: user.pass, admin: false, wallet: user.wallet })} /></td></tr>
                     <tr>
-                        <td>Password</td><td style={{ position: "relative" }}><input type={passFlag.type} onChange={(e) => setUser({ name: user.name, pass: e.target.value, admin: false })} />
-                            <button type="button" onClick={() => setFlag({ flag: !passFlag.flag, type: passFlag.type === "password" ? "" : "password", })} style={{ position: "absolute", right: "5px", top: "55%", transform: "translateY(-50%)", border: "none", background: "transparent", cursor: "pointer", padding: 0, }}>
-                                <img alt='' src={passFlag.flag ? icons[0] : icons[1]} width={15} style={{ transition: '0.3s', margin: '0 auto', marginBottom: '1px', marginRight: '3.5px' }} />
-                            </button>
+                        <td style={{ position: "relative" }}><input className='authInputs' placeholder='Password' type={passFlag.type} onChange={(e) => setUser({ name: user.name, pass: e.target.value, admin: false, wallet: user.wallet })} />
+                            <img onClick={() => setFlag({ flag: !passFlag.flag, type: passFlag.type === "password" ? "" : "password", })} className='secret' alt='' src={passFlag.flag ? icons[0] : icons[1]} width={15} style={{ transition: '0.3s', margin: '0 auto', marginBottom: '1px', marginRight: '3.5px' }} />
                         </td>
                     </tr>
 
-                    <tr style={{ textAlign: 'center' }}><td colSpan={2}><button onClick={addUser} style={{ width: '70%' }}>{login ? 'Sign in' : 'Sign up'}</button></td></tr>
-                    <tr><td className='switchAuth' colSpan={2}><Link to={login ? '/register' : '/login'}>{login ? 'Don\'t have an account? Register' : 'Already have an account? Login'}</Link></td></tr>
+                    <tr style={{ textAlign: 'center'}}><td colSpan={2}><button className='addbtn' onClick={addUser} >{login ? 'Sign in' : 'Sign up'}</button></td></tr>
+                    <tr><td className='switchAuth' colSpan={2}>{login ? 'Don\'t have an account?' : 'Already have an account?'} <Link to={login ? '/register' : '/login'}>{login ? 'Create one!' : 'Log in!'}</Link></td></tr>
                 </tbody>
             </table>
         </div>

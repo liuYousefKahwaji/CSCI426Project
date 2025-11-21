@@ -13,17 +13,17 @@
 
 .input:hover{
   outline: none;
-  border: 2px solid #262626;
+  border: 2px solid #ffffff;
 }
 
 .authTable {
-  width: auto;
-  background: #262626;
+  width: 22.5%;
+  background: #ffffff;
   text-align: center;
   border-radius: 20px;
   box-shadow:
   0 20px 40px rgba(0, 0, 0, 0.6),
-  0 0 36px rgba(255, 255, 255, 0.22);
+  0 0 36px rgba(0, 0, 0, 0.22);
 }
 
 img:hover {
@@ -32,12 +32,12 @@ img:hover {
 }
 
 .authTable td, .authTable h1 ,.authTable td a{
-    background-color: #262626;
+    background-color: #ffffff;
 }
 
 .authTable h1 {
     position: relative;
-    color: #dbcaf1;
+    color: #000000;
     top: -10px;
     font-size: 36px;
 }
@@ -46,7 +46,7 @@ img:hover {
 .errorCell {
   height: 30px;
   text-align: center;
-  background-color: #262626; 
+  background-color: #ffffff; 
   color: rgb(255, 0, 0);
 
   opacity: 0;
@@ -61,10 +61,45 @@ img:hover {
 }
 
 .switchAuth a:hover {
-  color: purple;
+  color: #1f54c7;
   transition: 0.2s;
 }
 
 .switchAuth a{
   transition: 0.2s;
+  color: #2563eb;
+}
+
+.secret{
+  cursor: pointer;
+  position: absolute;
+  right: 1.5%;
+  top: 40%
+}
+
+.authInputs{
+  padding-left: 5%;
+  padding-right: 5%;
+  margin: 0;
+}
+
+.authInputs:focus{
+  border: 2px solid #2563eb;
+  transition: 0.3s;
+}
+
+tbody h2{
+  top:-20px;
+  position: relative;
+  color: #555555;
+  font-weight: normal;
+  font-size: 20px
+}
+
+tbody .authHead{
+  padding-bottom: 0;
+}
+
+.addbtn{
+  width: 100%;
 }

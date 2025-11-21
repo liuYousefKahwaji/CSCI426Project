@@ -3,14 +3,14 @@
 	box-sizing: border-box;
 	width: 100%;
 	text-align: center;
-	color: #f2f2f7;
+	color: #2563eb;
 }
 
 .user-list h1 {
 	text-align: center;
 	margin: 0 0 16px 0;
 	font-size: 1.3rem;
-	color: #c9a8ff; 
+	color: #2563eb;
 }
 
 .user-controls {
@@ -34,23 +34,24 @@
 	font-weight: 600;
 	cursor: pointer;
 	transition: all 0.2s;
-	color: #fff;
+	color: #ffffff;
 }
 
 .user-controls .btn-select-all {
-	background: #a974ff;
+	background: #2563eb;
 }
 
 .user-controls .btn-select-all:hover:not([disabled]) {
-	background: #925cff;
+	background: #1f53c7;
 }
 
 .user-controls .btn-delete-selected {
-	background: #d9534f;
+	background: #2563eb;
+	opacity: 0.9;
 }
 
 .user-controls .btn-delete-selected:hover:not([disabled]) {
-	background: #c9423f;
+	background: #1f53c7;
 }
 
 .user-controls button[disabled] {
@@ -60,27 +61,27 @@
 
 .user-controls .selection-count {
 	font-weight: 600;
-	color: #c9a8ff;
+	color: #2563eb;
 	min-width: 120px;
 }
 
 .user-table {
-	background: #1b1b1f;
-	color: #e6e6e6;
+	background: #ffffff;
+	color: #2563eb;
 	position: fixed;
-	width: 60%;
-	border: 1px solid #2c2c33;
+	width: 97%;
+	border: 1px solid #f3f3f3;
 	border-radius: 8px;
-	box-shadow: 0 4px 24px rgba(0,0,0,0.5);
+	box-shadow: 0 4px 24px rgba(0,0,0,0.1);
 }
 
 .user-table thead th {
 	padding: 10px 14px;
-	background: #5b3ea8; 
+	background: #2563eb;
 	color: #ffffff;
 	font-weight: 700;
 	font-size: 0.95rem;
-	border-bottom: 1px solid #1f1f23;
+	border-bottom: 1px solid #f3f3f3;
 }
 
 .user-table .checkbox-col {
@@ -97,8 +98,8 @@
 	cursor: pointer;
 	width: 18px;
 	height: 18px;
-	accent-color: #a974ff;
-	background: #1b1b1f;
+	accent-color: #2563eb;
+	background: #ffffff;
 }
 
 .user-table input[type="checkbox"]:disabled {
@@ -108,37 +109,37 @@
 
 .user-table tbody td {
 	padding: 10px 14px;
-	border-bottom: 1px solid #2a2a30;
+	border-bottom: 1px solid #f3f3f3;
 	font-size: 0.95rem;
-	color: #e5e5e5;
+	color: #2563eb;
 }
 
 .user-table tbody tr {
-	background: #1b1b1f;
+	background: #ffffff;
 	transition: background-color 0.15s;
 }
 
 .user-table tbody tr.selected {
-	background: #6946c9;
+	background: #2563eb;
 }
 
 .user-table tbody tr.selected td {
-	background: #6946c9;
-	color: #f2e7ff;
+	background: #2563eb;
+	color: #ffffff;
 	font-weight: 500;
 }
 
 .user-table tbody tr:hover td {
-	background: #7a57de;
-	color: white;
+	background: #f3f3f3;
+	color: #2563eb;
 }
 
 .user-table tbody tr.selected:hover td {
-	background: #a974ff;
+	background: #1f53c7;
 }
 
 .user-table tbody td button {
-	background: #d9534f;
+	background: #2563eb;
 	color: #fff;
 	border: none;
 	padding: 6px 10px;
@@ -149,11 +150,12 @@
 }
 
 .user-table tbody td button:hover:not([disabled]) {
-	background: #c9423f;
+	background: #1f53c7;
 }
 
 .user-table tbody td button[disabled] {
-	background: #444;
+	background: #f3f3f3;
 	cursor: not-allowed;
-	opacity: 0.5;
+	color: #2563eb;
+	opacity: 0.6;
 }

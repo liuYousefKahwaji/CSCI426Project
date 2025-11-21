@@ -1,86 +1,99 @@
-.navDiv {
+.navBody {
         position: fixed;
         top: 0;
         left: 0;
-        height: 100vh;
-        transition: 0.3s;
-        background: rgb(68, 36, 97);
-        z-index: 3;
+        width: 100%;
+        height: 8vh;
+        background-color: #ffffff;
         display: flex;
         align-items: center;
-        justify-content: center;
+        z-index: 100;
 }
 
-
-.navDiv td {
-        padding: 10px 6vw;
-        text-align: center;
-        font-size: 18px;
-        font-weight: bold;
-        cursor: pointer;
-        transition: 0.1s;
-        background-color: rgb(68, 36, 97);
-        border-radius: 20px;
-}
-
-.navDiv td:hover, .navDiv td:hover a{
-        transition: 0.1s;
-        background: rgb(98, 51, 141);
-        transform: scale(1.05);
-}
-
-.navDiv td:hover, .navDiv .selected{
-        box-shadow: 0px 0px 10px #ffffff;
-}
-
-.navItem a {
-        transition: 0.1s;
-        text-decoration: none;
-        background-color: rgb(68, 36, 97);
+.navList {
+        list-style-type: none;
+        padding: 0;
+        padding-right: 10px;
+        margin: 0;
+        display: flex;
+        align-items: center;
         width: 100%;
 }
 
-.navOpen {
-        width: 20vw;
-        transition: 0.2s;
-}
-
-.navClosed {
-        width: 3.5vw;
-        transition: 0.2s;
-}
-
-
-.navButton {
-        border-radius: 100%;
-        text-align: center;
-        width: 32px;
-        height: 32px;
+.navTitle {
+        font-weight: bold;
         font-size: 20px;
-        vertical-align: middle;
-        margin: 10px;
-        transition: 0.3s;
-        position: relative;
-        z-index: 3;
-        vertical-align: middle;
+        margin-right: auto;
+        padding-left: 5vw;
+        display: flex;
+        align-items: center;
 }
 
-.opaque {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background-color: black;
-        transition: 0.3s;
-        z-index: 1;
+.navTitle h1 {
+        cursor: pointer;
+        color:  #2563eb;
 }
 
-.navDiv thead th {
-    color: #dbcaf1;
-    font-size: 24px;
-    position: relative;
-    width: 100%;
-    top: -60%;
-    left: 0;
+.navItem {
+        display: flex;
+        align-items: center;
+}
+
+.navItem a {
+        text-decoration: none;
+        color: #000000;
+        padding: 0.8rem 1.3rem;
+        border-radius: 10px;
+        font-size: 18px;
+        transition: 0.3s;
+        margin-right: 0.2rem;
+}
+
+.navItem a:hover {
+        text-decoration: none;
+        color: #000000;
+        padding: 0.8rem 1.4rem;
+        font-size: 18px;
+        background-color: #eeeeee;
+        transition: 0.3s;
+}
+
+/*responsive*/
+
+@media (max-width: 768px) {
+        .navBody {
+                height: auto;
+                padding: 10px 0;
+        }
+
+        .navTitle {
+                font-size: 20px;
+                padding-left: 4vw;
+                margin-bottom: 8px;
+                text-align: center;
+                align-self: center;
+                margin: 0 auto;
+        }
+
+        .navList {
+                flex-direction: column;
+                align-items: center;
+        }
+
+        .navItem a {
+                padding: 0.6rem 0;
+                font-size: 16px;
+        }
+}
+
+@media (max-width: 480px) {
+        .navTitle {
+                align-self: center;
+                margin: 0 auto;
+                font-size: 18px;
+        }
+
+        .navItem a {
+                font-size: 14px;
+        }
 }

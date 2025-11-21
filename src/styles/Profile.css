@@ -1,0 +1,63 @@
+.profile {
+    margin-top: 10%;
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: 85%; 
+    grid-template-rows: 28vh 25vh 9vh 28vh; 
+    justify-content: center; 
+}
+
+.pgriditem, .pgriditem .value{
+    border-radius: 10px;
+}
+
+.personal {
+    background-color: white;
+    width: 90%;
+    text-align: center;
+    height: 25vh;
+    margin-bottom: 0;
+    justify-self: center;
+}
+
+.values {
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); 
+    gap: 50px; 
+    width: 90%; 
+    height: fit-content;
+    justify-self: center; 
+}
+
+.value{
+    background-color: white;
+    text-align: center;
+    height: 25vh;
+    margin-bottom: 0;
+}
+
+.portfolio {
+    justify-self: center; 
+    align-self: self-start;
+    width: 90%; 
+    text-align: center;
+    background-color: white; 
+    margin-bottom: 20px;
+    height: 25vh;
+}
+
+.profile h1{
+    width: 90%;
+    font-size: 28px;
+    text-align: left;
+    justify-self:center ;
+    align-self: self-end;
+    font-weight: normal;
+}
+
+.portfolio ul{
+    list-style-type: none;
+}
