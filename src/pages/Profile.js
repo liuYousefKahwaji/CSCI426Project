@@ -86,7 +86,7 @@ function Profile({ user, theme, stockList, setUser, replaceUser }) {
                     userStocks.length !== 0 ? userStocks.map((item, index) => <li key={index} className='gridListItem'>
                         <div className='leftLi'>
                             <h3>{item.company}</h3>
-                            <h4>{item.ticker} •  {user.stocks[index].q} shares</h4>
+                            <h4>{item.ticker} •  {user.stocks[index].q} {user.stocks[index].q>1?'shares':'share'}</h4>
                         </div>
                         <div className='rightLi'>
                             <h4>${user.stocks[index].q * item.price}</h4>
