@@ -1,7 +1,7 @@
 import '../styles/UserList.css';
 import { useState } from 'react';
 
-function UserList({ userList, setUserList }) {
+function UserList({ userList, setUserList, theme }) {
     const [selected, setSelected] = useState([]);
 
     const toggleSelect = (index) => {
@@ -34,7 +34,7 @@ function UserList({ userList, setUserList }) {
     const nonAdminCount = userList.filter(u => !u.admin).length;
 
     return (
-        <div className="user-list">
+        <div className={"user-list "+theme}>
             <h1>User List (Admin Only)</h1>
             <ul className="user-controls">
                <li> <button 
@@ -70,6 +70,7 @@ function UserList({ userList, setUserList }) {
                         <th>Username</th>
                         <th>Password</th>
                         <th>Privileges</th>
+                        <th>Wallet</th>
                         <th>Delete</th>
                     </tr>
                 </thead>
@@ -88,8 +89,10 @@ function UserList({ userList, setUserList }) {
                                 <td>{user.name}</td>
                                 <td>{user.pass}</td>
                                 <td>{user.admin ? 'Admin' : 'User'}</td>
+                                <td>{user.wallet.toFixed(2)}$</td>
                                 <td>
                                     <button 
+                                        style={{background: user.admin ? 'gray' : 'red', color:'white'}}
                                         disabled={user.admin} 
                                         onClick={() => {
                                             const newList = userList.filter((_, i) => i !== index);

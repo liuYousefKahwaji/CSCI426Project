@@ -46,12 +46,12 @@
 }
 
 .user-controls .btn-delete-selected {
-	background: #2563eb;
+	background: red;
 	opacity: 0.9;
 }
 
 .user-controls .btn-delete-selected:hover:not([disabled]) {
-	background: #1f53c7;
+	background: red;
 }
 
 .user-controls button[disabled] {
@@ -66,13 +66,24 @@
 }
 
 .user-table {
-	background: #ffffff;
 	color: #2563eb;
 	position: fixed;
 	width: 97%;
 	border: 1px solid #f3f3f3;
 	border-radius: 8px;
 	box-shadow: 0 4px 24px rgba(0,0,0,0.1);
+}
+
+.dark .user-table {
+	border-color: #1e2021;
+}
+
+.dark .user-table{
+	background: #181a1b;
+}
+
+.light .user-table{
+	background: #ffffff;
 }
 
 .user-table thead th {
@@ -99,7 +110,13 @@
 	width: 18px;
 	height: 18px;
 	accent-color: #2563eb;
+}
+
+.light .user-table input[type="checkbox"] {
 	background: #ffffff;
+}
+.dark .user-table input[type="checkbox"] {
+	background: #181a1b;
 }
 
 .user-table input[type="checkbox"]:disabled {
@@ -109,14 +126,20 @@
 
 .user-table tbody td {
 	padding: 10px 14px;
-	border-bottom: 1px solid #f3f3f3;
+	border-bottom: 1px solid #2563eb;
 	font-size: 0.95rem;
 	color: #2563eb;
 }
 
 .user-table tbody tr {
-	background: #ffffff;
 	transition: background-color 0.15s;
+}
+
+.light .user-table tbody tr{
+	background: #ffffff;
+}
+.dark .user-table tbody tr{
+	background: #181a1b;
 }
 
 .user-table tbody tr.selected {
@@ -130,8 +153,14 @@
 }
 
 .user-table tbody tr:hover td {
-	background: #f3f3f3;
 	color: #2563eb;
+}
+
+.light .user-table tbody tr:hover td{
+	background: #f3f3f3;
+}
+.dark .user-table tbody tr:hover td{
+	background: #1e2021;
 }
 
 .user-table tbody tr.selected:hover td {

@@ -1,11 +1,16 @@
 .profile {
     margin-top: 10%;
+    margin-bottom: 10%;
     width: 100vw;
-    height: 100vh;
     display: grid;
     grid-template-columns: 85%; 
-    grid-template-rows: 28vh 25vh 9vh 28vh; 
-    justify-content: center; 
+    grid-template-rows: 28vh 25vh 9vh auto; 
+    justify-content: center;
+    min-height: fit-content;
+    padding-bottom: 20px;
+    max-height: calc(100vh - 8vh);
+    overflow-y: auto;
+    overflow-x: hidden;
 }
 
 .pgriditem, .pgriditem .value{
@@ -19,6 +24,10 @@
     height: 25vh;
     margin-bottom: 0;
     justify-self: center;
+    vertical-align: middle;
+    display: flex;
+    align-items: center;
+    align-content: center;
 }
 
 .values {
@@ -44,9 +53,7 @@
     align-self: self-start;
     width: 90%; 
     text-align: center;
-    background-color: white; 
     margin-bottom: 20px;
-    height: 25vh;
 }
 
 .profile h1{
@@ -60,4 +67,90 @@
 
 .portfolio ul{
     list-style-type: none;
+    width: 100%;
+    margin: 0px;
+    padding: 0;
 }
+
+.gridListItem{
+    width: 100%;
+    background-color: white; 
+    color: black;
+    margin-bottom: 10px;
+    aspect-ratio: 10/1;
+    border-radius: 10px;
+    display: flex;
+}
+
+.leftLi{
+    margin-left: 2%;
+    justify-self: left;
+    align-self: center;
+}
+.leftLi h4{
+    color: gray;
+}
+
+.rightLi{
+    margin-left: 81%;
+    justify-self: right;
+    align-self: center;
+}
+.rightLi h4{
+    font-weight: bold;
+    color: rgb(101, 101, 101);
+    padding-bottom: 0;
+    margin-bottom: 5px;
+}
+.rightLi h5{
+    color: gray;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.dark .personal,
+.dark .value,
+.dark .gridListItem {
+    background-color: #181a1b; 
+    color: #f0f2f5;
+}
+
+.orb{
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 100%;
+    width: 7%;
+    aspect-ratio: 1/1;
+    background-color: #2563eb;
+    align-content: center;
+    align-items: center;
+    justify-content: center;
+    justify-items: center;
+    float: left;
+    margin: 20px;
+    margin-left: 50px;
+    font-size: 170%;
+    color: white;
+}
+
+.info{
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+}
+
+.info h1, .info h3{
+    text-align: center;
+    width: 100%;
+    margin-left: 10%;
+}
+
+.personal button{
+    margin-left: 50%;
+    align-self: center;
+    float: right;
+}
+
+

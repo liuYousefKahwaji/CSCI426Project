@@ -1,10 +1,10 @@
 import '../styles/NavBar.css';
 import { Link } from 'react-router-dom';
 
-function NavBar({ auth, user }) {
+function NavBar({ auth, user , theme, setTheme}) {
   const list = auth ? (user.admin ? ['Home', 'Stocks', 'Profile', 'UserList', 'Logout'] : ['Home', 'Stocks', 'Profile', 'Logout']) : ['Home', 'Login', 'Register', 'Stocks', 'Profile'];
   return (
-    <div className="navBody">
+    <div className={"navBody "+(theme==='light'?'lightAccent':'darkAccent')}>
       <ul className='navList'>
         <li className='navTitle'><Link to={'/home'} style={{textDecoration:'none'}}><h1>📈StockEx</h1></Link></li>
         {list.map((item, index) => (
@@ -14,6 +14,7 @@ function NavBar({ auth, user }) {
               : 'not-allowed'
           }} to={'/' + item.toLowerCase()}>{item}</Link></li>
         ))}
+        <li className={"navItem"} style={{cursor:'pointer'}} onClick={()=>setTheme(theme==='light'?'dark':'light')}><a>{theme==='light'?'⚪':'⚫'}</a></li>
       </ul>
     </div>
 

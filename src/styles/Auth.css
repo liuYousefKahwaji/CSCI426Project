@@ -11,19 +11,18 @@
 }
 
 
-.input:hover{
+.input:hover {
   outline: none;
   border: 2px solid #ffffff;
 }
 
 .authTable {
   width: 22.5%;
-  background: #ffffff;
   text-align: center;
   border-radius: 20px;
   box-shadow:
-  0 20px 40px rgba(0, 0, 0, 0.6),
-  0 0 36px rgba(0, 0, 0, 0.22);
+    0 20px 40px rgba(0, 0, 0, 0.6),
+    0 0 36px rgba(0, 0, 0, 0.22);
 }
 
 img:hover {
@@ -31,22 +30,36 @@ img:hover {
   transform: scale(1.2);
 }
 
-.authTable td, .authTable h1 ,.authTable td a{
-    background-color: #ffffff;
+.authTable.lightAccent td,
+.authTable.lightAccent h1,
+.authTable.lightAccent td a {
+  background-color: #ffffff;
+}
+
+.authTable.darkAccent td,
+.authTable.darkAccent h1,
+.authTable.darkAccent td a {
+  background-color: #181a1b;
 }
 
 .authTable h1 {
-    position: relative;
-    color: #000000;
-    top: -10px;
-    font-size: 36px;
+  position: relative;
+  top: -10px;
+  font-size: 36px;
+}
+
+.authTable.darkAccent {
+  color: white;
+}
+.authTable.lightAccent{
+  color: black;
 }
 
 
 .errorCell {
   height: 30px;
   text-align: center;
-  background-color: #ffffff; 
+  background-color: #ffffff;
   color: rgb(255, 0, 0);
 
   opacity: 0;
@@ -61,45 +74,46 @@ img:hover {
 }
 
 .switchAuth a:hover {
-  color: #1f54c7;
+  color: #153a8b;
   transition: 0.2s;
 }
 
-.switchAuth a{
+.switchAuth a {
   transition: 0.2s;
   color: #2563eb;
 }
 
-.secret{
+.secret {
   cursor: pointer;
   position: absolute;
   right: 1.5%;
   top: 40%
 }
 
-.authInputs{
+.authInputs {
   padding-left: 5%;
   padding-right: 5%;
   margin: 0;
 }
 
-.authInputs:focus{
+.authInputs:focus {
   border: 2px solid #2563eb;
   transition: 0.3s;
 }
 
-tbody h2{
-  top:-20px;
+tbody h2 {
+  top: -20px;
   position: relative;
-  color: #555555;
+  color: #555555 !important;
   font-weight: normal;
   font-size: 20px
 }
 
-tbody .authHead{
+tbody .authHead {
   padding-bottom: 0;
 }
 
-.addbtn{
+.addbtn {
   width: 100%;
+  color: white;
 }

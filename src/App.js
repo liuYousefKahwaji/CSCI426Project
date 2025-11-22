@@ -13,8 +13,9 @@ import { Navigate } from "react-router-dom";
 
 function App() {
   const [auth, setAuth] = useState(true);
-  const [userList, setUserList] = useState([{ name: 'admin', pass: 'admin', admin: true, wallet: 10000 }, { name: 'test1', pass: '123', admin: false, wallet: 1000 }, { name: 'test2', pass: '321', admin: false, wallet: 100 }]);
-  const [user, setUser] = useState({ name: 'admin', pass: 'admin', admin: true, wallet: 10000 });
+  const [theme, setTheme] = useState('light');
+  const [userList, setUserList] = useState([{ name: 'admin', pass: 'admin', admin: true, wallet: 10000.0, stocks: [0, 4, 5] }, { name: 'test1', pass: '123', admin: false, wallet: 1000.0, stocks: [{ i: 0, q: 1 }, { i: 1, q: 4 }, { i: 3, q: 1 }] }, { name: 'test2', pass: '321', admin: false, wallet: 100.0, stocks: [{ i: 1, q: 5 }] }]);
+  const [user, setUser] = useState({ name: 'admin', pass: 'admin', admin: true, wallet: 10000.0, stocks: [{ i: 0, q: 2 }, { i: 4, q: 1 }, { i: 5, q: 1 }] });
   const [stockList, setStockList] = useState([
     { company: "Apple Inc.", ticker: "AAPL", price: 178.45, change: 2.34 },
     { company: "Microsoft Corp.", ticker: "MSFT", price: 374.58, change: -1.24 },
@@ -30,21 +31,33 @@ function App() {
     if (!admin) return auth ? Component : <Navigate to="/login" />;
     if (admin) return auth && user.admin ? Component : <Navigate to="/login" />;
   }
+
+  const replaceUser = (updatedUser) => {
+    const newUsersList = userList.map((currentUser) => {
+      if (currentUser.name === updatedUser.name) {
+        return updatedUser;
+      }
+      return currentUser;
+    });
+    setUserList(newUsersList);
+  };
+
   return (
-    <div className="App">
+    <div className={"App " + theme}>
+      <title>CSCI426Project</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
       <Router>
-        <NavBar auth={auth} user={user} />
+        <NavBar auth={auth} user={user} theme={theme} setTheme={setTheme} />
         <Routes>
-          <Route path='/login' element={auth ? <Navigate to="/home" replace /> : <Auth login={true} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} />} />
+          <Route path='/login' element={auth ? <Navigate to="/home" replace /> : <Auth login={true} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} theme={theme} />} />
           <Route path="/" element={authRoute(<Navigate to="/home" replace />, false)} />
           <Route path="/CSCI426Project" element={<Navigate to="/home" replace />} />
-          <Route path="/home" element={<Home auth={auth} stockList={stockList} />} />
+          <Route path="/home" element={<Home auth={auth} stockList={stockList} theme={theme} />} />
           <Route path='/logout' element={<Logout setAuth={setAuth} setUser={setUser} />} />
-          <Route path='/register' element={<Auth login={false} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} />} />
-          <Route path='/userlist' element={authRoute(<UserList userList={userList} setUserList={setUserList} />, true)} />
-          <Route path='/stocks' element={authRoute(<Stocks/>, false)} />
-          <Route path='/profile' element={authRoute(<Profile user={user}/>, false)} />
+          <Route path='/register' element={<Auth login={false} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} theme={theme} />} />
+          <Route path='/userlist' element={authRoute(<UserList userList={userList} setUserList={setUserList} theme={theme} />, true)} />
+          <Route path='/stocks' element={authRoute(<Stocks />, false)} />
+          <Route path='/profile' element={authRoute(<Profile user={user} stockList={stockList} setUser={setUser} userList={userList} setUserList={setUserList} replaceUser={replaceUser}/>, false)} />
         </Routes>
       </Router>
     </div>

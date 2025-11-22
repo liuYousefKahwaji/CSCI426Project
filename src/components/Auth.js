@@ -4,7 +4,7 @@ import '../styles/Auth.css';
 import openPng from '../assets/open.png';
 import closedPng from '../assets/closed.png';
 
-function Auth({ login, auth, setAuth, userList, setUserList, user, setUser }) {
+function Auth({ login, auth, setAuth, userList, setUserList, user, setUser, theme }) {
     const [redirect, setRedirect] = useState(false);
     const icons = [openPng, closedPng];
     const [passFlag, setFlag] = useState({ flag: false, type: 'password' });
@@ -52,7 +52,7 @@ function Auth({ login, auth, setAuth, userList, setUserList, user, setUser }) {
 
     return (
         <div className='auth'>
-            <table className='authTable' cellSpacing={32} width={'40%'} onKeyDown={(event) => { if (event.key === 'Enter') addUser() }}>
+            <table className={'authTable '+(theme==='light'?'lightAccent':'darkAccent')} cellSpacing={32} width={'40%'} onKeyDown={(event) => { if (event.key === 'Enter') addUser() }}>
                 <tbody>
                     <tr ><td colSpan={2} className='authHead'><h1>{login ? 'Login' : 'Register'}</h1><h2>{login ? 'Sign in with your account' : 'Create an account'}</h2></td></tr>
                     <tr><td><input className='authInputs' placeholder='Username' value={user.name} onChange={(e) => setUser({ name: e.target.value, pass: user.pass, admin: false, wallet: user.wallet })} /></td></tr>

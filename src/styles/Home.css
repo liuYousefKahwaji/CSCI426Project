@@ -37,6 +37,7 @@
 
 .topButtons button {
     margin: 0 10px;
+    color: white;
 }
 
 .homeBtn {
@@ -50,7 +51,6 @@
 .homeBottom {
     width: 100%;
     height: 60vh;
-    background-color: #f3f3f3;
     text-align: center;
 }
 
@@ -70,7 +70,6 @@
     padding: 10px;
     margin: 10px 20px;
     height: auto;
-    background-color: white;
     transition: 0.3s;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
@@ -81,7 +80,6 @@
     margin: 9px 18px;
 }
 
-/* Inside gridElement */
 .gridElement {
     display: flex;
     flex-direction: column;
@@ -92,14 +90,11 @@
     padding: 30px;
 }
 
-/* Company name */
 .gridElement .company {
     font-size: 1.09rem;
     font-weight: 500;
-    color: #000000;
 }
 
-/* Ticker symbol */
 .gridElement .ticker {
     font-size: 0.95rem;
     font-weight: 500;
@@ -107,14 +102,11 @@
     opacity: 0.9;
 }
 
-/* Price text */
 .gridElement .price {
     font-size: 1.55rem;
     font-weight: 600;
-    color: #0f172a;
 }
 
-/* Change value (color handled inline in React) */
 .gridElement .change {
     font-size: 1.12rem;
     font-weight: 500;
