@@ -3,19 +3,21 @@ import '../styles/Profile.css'
 
 function Profile({ user, theme, stockList, setUser, replaceUser }) {
     const [portfolioValue, setPortfolioValue] = useState(0.0);
-    const [userStocks, setUserStocks] = useState([{company: "", ticker: "", price: 0, change: 0}]);
+    const [userStocks, setUserStocks] = useState([]);
     useEffect(() => {
         let total = 0.0;
         let tempList = [];
-        for (const holding of user.stocks) {
-            const stockIndex = holding.i;
-            const quantity = holding.q;
-            tempList= [...tempList,stockList[stockIndex]];
-            const currentPrice = stockList[stockIndex].price;
-            total += currentPrice * quantity;
-        }
-        setPortfolioValue(total);
-        setUserStocks(tempList);
+        if (user.stocks && Array.isArray(user.stocks) && user.stocks.length > 0) {
+            for (const holding of user.stocks) {
+                const stockIndex = holding.i;
+                const quantity = holding.q;
+                tempList = [...tempList, stockList[stockIndex]];
+                const currentPrice = stockList[stockIndex].price;
+                total += currentPrice * quantity;
+            }
+            setPortfolioValue(total);
+            setUserStocks(tempList);
+        } else setUserStocks([]);
     }, [user.stocks, stockList]);
 
     function ValueComp({ title, value, children }) {
@@ -81,16 +83,16 @@ function Profile({ user, theme, stockList, setUser, replaceUser }) {
             <h1>Your Portfolio</h1>
             <div className="portfolio pgriditem">
                 <ul>{
-                    userStocks.map((item, index) => <li key={index} className='gridListItem'>
+                    userStocks.length !== 0 ? userStocks.map((item, index) => <li key={index} className='gridListItem'>
                         <div className='leftLi'>
                             <h3>{item.company}</h3>
                             <h4>{item.ticker} •  {user.stocks[index].q} shares</h4>
                         </div>
                         <div className='rightLi'>
-                            <h4>${user.stocks[index].q*item.price}</h4>
+                            <h4>${user.stocks[index].q * item.price}</h4>
                             <h5>SP: ${item.price}</h5>
                         </div>
-                    </li>)
+                    </li>) : <li className='gridListEmpty' style={{textAlign:'left'}}>Your portfolio is empty. Start buying stocks!</li>
                 }</ul>
             </div>
         </div>
