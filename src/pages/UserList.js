@@ -1,9 +1,10 @@
 import '../styles/UserList.css';
 import { useState } from 'react';
 
-function UserList({ userList, setUserList, theme }) {
+function UserList({ userList, setUserList, theme, replaceUser }) {
     const [selected, setSelected] = useState([]);
 
+    // toggle single select
     const toggleSelect = (index) => {
         if (userList[index].admin) return;
         if (selected.includes(index)) {
@@ -13,6 +14,7 @@ function UserList({ userList, setUserList, theme }) {
         }
     };
 
+    // toggle all
     const toggleSelectAll = () => {
         const nonAdminIndices = userList.map((u, i) => (!u.admin ? i : null)).filter(i => i !== null);
         if (selected.length === nonAdminIndices.length) {
@@ -22,6 +24,7 @@ function UserList({ userList, setUserList, theme }) {
         }
     };
 
+    // delete selected users
     const deleteSelected = () => {
         if (selected.length === 0) return;
         if (!window.confirm(`Delete ${selected.length} user(s)?`)) return;
@@ -89,7 +92,11 @@ function UserList({ userList, setUserList, theme }) {
                                 <td>{user.name}</td>
                                 <td>{user.pass}</td>
                                 <td>{user.admin ? 'Admin' : 'User'}</td>
-                                <td>{user.wallet.toFixed(2)}$</td>
+                                <td><button style={{padding:'8px 10px', width:'35%'}} disabled={user.admin} onClick={()=>{
+                                    const newVal = parseFloat(prompt("Enter new Wallet value: "))
+                                    const changedUser = {...user, wallet:newVal};
+                                    replaceUser(changedUser);
+                                }}>{user.wallet.toFixed(2)}$</button></td>
                                 <td>
                                     <button 
                                         style={{background: user.admin ? 'gray' : 'red', color:'white'}}
@@ -101,8 +108,7 @@ function UserList({ userList, setUserList, theme }) {
                                                 .filter(i => i !== index)
                                                 .map(i => (i > index ? i - 1 : i));
                                             setSelected(adjusted);
-                                        }}
-                                    >
+                                        }}>
                                         {user.admin ? 'Admin' : 'Delete'}
                                     </button>
                                 </td>

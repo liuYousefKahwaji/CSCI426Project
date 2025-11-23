@@ -4,6 +4,7 @@ import '../styles/Profile.css'
 function Profile({ user, theme, stockList, setUser, replaceUser }) {
     const [portfolioValue, setPortfolioValue] = useState(0.0);
     const [userStocks, setUserStocks] = useState([]);
+    // calc portfolio value
     useEffect(() => {
         let total = 0.0;
         let tempList = [];
@@ -20,6 +21,7 @@ function Profile({ user, theme, stockList, setUser, replaceUser }) {
         } else setUserStocks([]);
     }, [user.stocks, stockList]);
 
+    // value display component
     function ValueComp({ title, value, children }) {
         return <div className='value'>
             <h3 style={{
@@ -32,6 +34,7 @@ function Profile({ user, theme, stockList, setUser, replaceUser }) {
         </div>
     }
 
+    // handle wallet/password change
     function prompted(change) {
         if (change === "wallet") {
             const input = prompt("Enter increase (can be negative): ");
@@ -86,10 +89,10 @@ function Profile({ user, theme, stockList, setUser, replaceUser }) {
                     userStocks.length !== 0 ? userStocks.map((item, index) => <li key={index} className='gridListItem'>
                         <div className='leftLi'>
                             <h3>{item.company}</h3>
-                            <h4>{item.ticker} •  {user.stocks[index].q} {user.stocks[index].q>1?'shares':'share'}</h4>
+                            <h4>{item.ticker} • {user.stocks[index].q} {user.stocks[index].q>1?'shares':'share'}</h4>
                         </div>
                         <div className='rightLi'>
-                            <h4>${user.stocks[index].q * item.price}</h4>
+                            <h4>${(user.stocks[index].q * item.price).toFixed(2)}</h4>
                             <h5>SP: ${item.price}</h5>
                         </div>
                     </li>) : <li className='gridListEmpty' style={{textAlign:'left'}}>Your portfolio is empty. Start buying stocks!</li>

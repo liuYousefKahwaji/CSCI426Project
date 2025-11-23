@@ -10,6 +10,7 @@ function Auth({ login, auth, setAuth, userList, setUserList, user, setUser, them
     const [passFlag, setFlag] = useState({ flag: false, type: 'password' });
     const errmsgs = ["Username cannot be empty", "Password cannot be empty", "Incorrect username or password.",];
 
+    // login or register
     const addUser = () => {
         let searchList = [];
         if (user.name === '') {

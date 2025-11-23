@@ -77,23 +77,30 @@
     background-color: white; 
     color: black;
     margin-bottom: 10px;
-    aspect-ratio: 10/1;
+    min-height: 80px;
     border-radius: 10px;
     display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
 }
 
 .leftLi{
-    margin-left: 2%;
-    justify-self: left;
+    flex: 1;
     align-self: center;
+    text-align: left;
+}
+.leftLi h3,
+.leftLi h4{
+    text-align: left;
 }
 .leftLi h4{
     color: gray;
 }
 
 .rightLi{
-    margin-left: 81%;
-    justify-self: right;
+    text-align: right;
     align-self: center;
 }
 .rightLi h4{
@@ -152,5 +159,3 @@
     align-self: center;
     float: right;
 }
-
-

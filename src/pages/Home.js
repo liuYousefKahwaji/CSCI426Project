@@ -3,6 +3,7 @@ import "../styles/Home.css";
 import { Link } from "react-router-dom";
 
 function Home({ auth, stockList, theme }) {
+  // get first 4 stocks
   const selectList = [...stockList].slice(0, 4);
   return (
     <div className="home">

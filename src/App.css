@@ -5,7 +5,7 @@ html, body {
   height: 100%;
 }
 
-h3,h4,h5{
+h3{
   font-weight: normal;
 }
 
@@ -43,7 +43,6 @@ body {
   display: grid;
   grid-template-columns: repeat(5, minmax(100px, 1fr));
   height: 100vh;
-  overflow: hidden;
 }
 
 button {
