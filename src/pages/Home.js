@@ -23,7 +23,7 @@ function Home({ auth, stockList, theme }) {
           <h2>Access real-time market data and make informed investment decisions</h2>
         </div>
         <div className="topButtons">
-          <Link to={auth ? '/profile' : 'login'}><button>Get Started</button></Link>
+          <Link to={auth ? '/profile' : '/login'}><button>Get Started</button></Link>
           <Link to='/stocks'><button className="homeBtn">Browse Stocks</button></Link>
         </div>
       </div>

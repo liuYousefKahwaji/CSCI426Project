@@ -16,7 +16,7 @@ function App() {
   const [theme, setTheme] = useState('light');
   const [userList, setUserList] = useState([{ name: 'admin', pass: 'admin', admin: true, wallet: 10000.0, stocks: [{ i: 0, q: 2 }, { i: 4, q: 1 }, { i: 5, q: 1 }] }, { name: 'test1', pass: '123', admin: false, wallet: 1000.0, stocks: [{ i: 0, q: 1 }, { i: 1, q: 4 }, { i: 3, q: 1 }] }, { name: 'test2', pass: '321', admin: false, wallet: 100.0, stocks: [{ i: 1, q: 5 }] }]);
   const [user, setUser] = useState({ name: '', pass: '', admin: false, wallet: 0.0, stocks: [] });
-  const [stockList, setStockList] = useState([
+  const stockList = [
     { company: "Apple Inc.", ticker: "AAPL", price: 178.45, change: 2.34 },
     { company: "Microsoft Corp.", ticker: "MSFT", price: 374.58, change: -1.24 },
     { company: "Tesla Inc.", ticker: "TSLA", price: 238.72, change: 5.67 },
@@ -39,7 +39,7 @@ function App() {
     { company: "Adobe Inc.", ticker: "ADBE", price: 580.95, change: -1.90 },
     { company: "Salesforce, Inc.", ticker: "CRM", price: 245.10, change: 3.05 },
     { company: "Cisco Systems, Inc.", ticker: "CSCO", price: 50.18, change: 0.75 },
-  ]);
+  ];
 
   // check auth
   const authRoute = (Component, admin) => {
@@ -57,16 +57,16 @@ function App() {
     });
     setUserList(newUsersList);
   };
-
+  const REPO_NAME = '/CSCI426Project';
   return (
     <div className={"App " + theme}>
       <title>CSCI426Project</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-      <Router>
+      <Router basename={REPO_NAME}>
         <NavBar auth={auth} user={user} theme={theme} setTheme={setTheme} />
         <Routes>
           <Route path='/login' element={auth ? <Navigate to="/home" replace /> : <Auth login={true} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} theme={theme} />} />
-          <Route path="/" element={authRoute(<Navigate to="/home" replace />, false)} />
+          <Route path="/" element={<Navigate to="/home" replace />} />
           <Route path="/CSCI426Project" element={<Navigate to="/home" replace />} />
           <Route path="/home" element={<Home auth={auth} stockList={stockList} theme={theme} />} />
           <Route path='/logout' element={<Logout setAuth={setAuth} setUser={setUser} />} />
