@@ -57,12 +57,10 @@ function App() {
     });
     setUserList(newUsersList);
   };
-  const REPO_NAME = '/CSCI426Project';
   return (
     <div className={"App " + theme}>
-      <title>CSCI426Project</title>
       <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-      <Router basename={REPO_NAME}>
+      <Router>
         <NavBar auth={auth} user={user} theme={theme} setTheme={setTheme} />
         <Routes>
           <Route path='/login' element={auth ? <Navigate to="/home" replace /> : <Auth login={true} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} theme={theme} />} />
