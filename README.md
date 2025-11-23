@@ -1,70 +1,90 @@
-# Getting Started with Create React App
+# StockEx – CSCI426 Stock Trading Project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple, educational stock trading simulation app where you can explore real-world stocks, sort, search, buy, sell, and manage users—all with a clean UI built using React.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **User Login & Registration**
+  - Create an account, login, or use the default admin
+  - Role-based (admin/basic) user system
 
-### `npm start`
+- **Browse & Search Stocks**
+  - Explore a list of real-world stocks
+  - Search stocks by company or ticker
+  - Sort by any column (name, ticker, price, change, owned)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Buy & Sell Simulation**
+  - Simple buy/sell dialog for each stock
+  - Shows how much you own and your wallet balance
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Portfolio & Profile**
+  - Track your holdings and portfolio value
+  - Change password (admin can adjust wallet funds)
 
-### `npm test`
+- **User Management (Admin)**
+  - See a list of all users
+  - Reset user wallets or delete users (except admin)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **TradingView Chart Integration**
+  - Quickly open TradingView stock charts for each ticker
 
-### `npm run build`
+- **Light/Dark Theme**
+  - Toggle theme at any time
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Getting Started
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Prerequisites
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Node.js (v16+ recommended)
+- npm
 
-### `npm run eject`
+### Installation
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. Clone the repo:
+   ```git clone https://github.com/yourusername/stockex.git```
+   ```cd stockex```
+   
+3. Install dependencies:
+   ```npm install```
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+3. Start the development server:
+   ```npm start```
+5. Open your browser to [http://localhost:3000](http://localhost:3000)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## File Structure
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- `src/App.js` – Main app and routes
+- `src/pages/Stocks.js` – Browse/search/sort stocks, trading logic
+- `src/pages/Profile.js` – Profile and portfolio
+- `src/pages/UserList.js` – Admin user management
+- `src/pages/Home.js` – Front-page summary
+- `src/components/Auth.js` – Authentication UI, functions for both login and register
+- `src/components/NavBar.js`, `Logout.js` – Navigation and auth logic
 
-## Learn More
+## Credentials
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- **Demo Admin:**  
+  Username: `admin`  
+  Password: `admin`
+- **Demo User 1:**  
+  Username: `test1`  
+  Password: `123`
+- **Demo User 2:**  
+  Username: `test2`  
+  Password: `321`
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Demo users are built in, but you can make new accounts from the registration page.
 
-### Code Splitting
+## Notes
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- This app is for educational/demo purposes only and has no real trading functionality.
+- Charts use [tradingview.com](https://tradingview.com) (opens in a new tab).
+- Wallet/portfolio values are local to your session and not persistent / don't get stored on local nor cloud storage.
 
-### Analyzing the Bundle Size
+## Plans for the future
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- Backend (database, etc)
+- Mobile / more responsive support
+- Favorites / watchlist
+- Multicurrency conversions
+- Transaction History
