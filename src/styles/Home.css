@@ -95,6 +95,11 @@
     font-weight: 500;
 }
 
+.bottomGrid a{
+    text-decoration: none;
+    aspect-ratio: 1/1;
+}
+
 .gridElement .ticker {
     font-size: 0.95rem;
     font-weight: 500;

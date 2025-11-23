@@ -1,10 +1,20 @@
-import React from "react";
+import React, { useState } from "react";
 import "../styles/Home.css";
-import { Link } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 
 function Home({ auth, stockList, theme }) {
+  const [shouldNavigate, setShouldNavigate] = useState(false)
+  const handleClick = () => {
+    setShouldNavigate(true);
+  };
+
   // get first 4 stocks
   const selectList = [...stockList].slice(0, 4);
+
+  if (shouldNavigate) {
+    return <Navigate to="/stocks" />;
+  }
+
   return (
     <div className="home">
       <div className="homeTop">
@@ -17,12 +27,12 @@ function Home({ auth, stockList, theme }) {
           <Link to='/stocks'><button className="homeBtn">Browse Stocks</button></Link>
         </div>
       </div>
-      <div className={"homeBottom "+theme}>
+      <div className={"homeBottom " + theme}>
         <h1>Featured Stocks</h1>
         <div className="bottomGrid">
           {
             selectList.map((item, index) => (
-              <div key={index} className={"gridElement "+(theme==='light'?'lightAccent':'darkAccent')}>
+              <div key={index} onClick={handleClick} className={"gridElement " + (theme === 'light' ? 'lightAccent' : 'darkAccent')} style={{cursor:'pointer'}}>
                 <div className="company">{item.company}</div>
                 <div className="ticker">{item.ticker}</div>
                 <div className="price">${item.price}</div>

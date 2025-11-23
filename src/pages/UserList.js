@@ -94,6 +94,7 @@ function UserList({ userList, setUserList, theme, replaceUser }) {
                                 <td>{user.admin ? 'Admin' : 'User'}</td>
                                 <td><button style={{padding:'8px 10px', width:'35%'}} disabled={user.admin} onClick={()=>{
                                     const newVal = parseFloat(prompt("Enter new Wallet value: "))
+                                    if(!newVal) return;
                                     const changedUser = {...user, wallet:newVal};
                                     replaceUser(changedUser);
                                 }}>{user.wallet.toFixed(2)}$</button></td>
