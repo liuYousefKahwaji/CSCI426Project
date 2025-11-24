@@ -1,11 +1,13 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import '../styles/Auth.css';
 import openPng from '../assets/open.png';
 import closedPng from '../assets/closed.png';
+import ThemeContext from '../context/ThemeContext';
 
-function Auth({ login, auth, setAuth, userList, setUserList, user, setUser, theme }) {
+function Auth({ login, auth, setAuth, userList, setUserList, user, setUser }) {
     const [redirect, setRedirect] = useState(false);
+    const { theme } = useContext(ThemeContext);
     const icons = [openPng, closedPng];
     const [passFlag, setFlag] = useState({ flag: false, type: 'password' });
     const errmsgs = ["Username cannot be empty", "Password cannot be empty", "Incorrect username or password.",];

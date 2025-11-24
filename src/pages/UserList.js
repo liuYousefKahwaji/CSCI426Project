@@ -1,8 +1,10 @@
 import '../styles/UserList.css';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import ThemeContext from '../context/ThemeContext';
 
-function UserList({ userList, setUserList, theme, replaceUser }) {
+function UserList({ userList, setUserList, replaceUser }) {
     const [selected, setSelected] = useState([]);
+    const { theme } = useContext(ThemeContext);
 
     // toggle single select
     const toggleSelect = (index) => {

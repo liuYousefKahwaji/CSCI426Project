@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "../styles/Home.css";
 import { Link, Navigate } from "react-router-dom";
+import ThemeContext from "../context/ThemeContext";
 
-function Home({ auth, stockList, theme }) {
+function Home({ auth, stockList }) {
   const [shouldNavigate, setShouldNavigate] = useState(false)
+  const { theme } = useContext(ThemeContext);
   const handleClick = () => {
     setShouldNavigate(true);
   };

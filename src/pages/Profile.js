@@ -1,9 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import '../styles/Profile.css'
+import ThemeContext from '../context/ThemeContext'
 
-function Profile({ user, theme, stockList, setUser, replaceUser }) {
+function Profile({ user, stockList, setUser, replaceUser }) {
     const [portfolioValue, setPortfolioValue] = useState(0.0);
     const [userStocks, setUserStocks] = useState([]);
+    const { theme } = useContext(ThemeContext);
     // calc portfolio value
     useEffect(() => {
         let total = 0.0;

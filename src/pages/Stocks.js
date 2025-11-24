@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import '../styles/Stocks.css';
+import ThemeContext from '../context/ThemeContext';
 
-function Stocks({ user, stockList, setUser, replaceUser, theme }) {
+function Stocks({ user, stockList, setUser, replaceUser }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [sortColumn, setSortColumn] = useState(null);
     const [sortDirection, setSortDirection] = useState('asc');
+    const { theme } = useContext(ThemeContext);
 
     const getOwnedQuantity = (stockIndex) => {
         if (!user.stocks || !Array.isArray(user.stocks)) return 0;

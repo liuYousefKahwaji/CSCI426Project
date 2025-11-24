@@ -1,7 +1,10 @@
 import '../styles/NavBar.css';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import ThemeContext from '../context/ThemeContext';
 
-function NavBar({ auth, user , theme, setTheme}) {
+function NavBar({ auth, user }) {
+  const { theme, setTheme } = useContext(ThemeContext);
   const list = auth ? (user.admin ? ['Home', 'Stocks', 'Profile', 'UserList', 'Logout'] : ['Home', 'Stocks', 'Profile', 'Logout']) : ['Home', 'Login', 'Register', 'Stocks', 'Profile'];
   return (
     <div className={"navBody "+(theme==='light'?'lightAccent':'darkAccent')}>

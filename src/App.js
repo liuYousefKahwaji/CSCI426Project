@@ -10,6 +10,7 @@ import Stocks from './pages/Stocks';
 
 import { useState } from 'react';
 import { Navigate } from "react-router-dom";
+import ThemeContext from './context/ThemeContext';
 
 function App() {
   const [auth, setAuth] = useState(false);
@@ -58,23 +59,25 @@ function App() {
     setUserList(newUsersList);
   };
   return (
-    <div className={"App " + theme}>
-      <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-      <Router>
-        <NavBar auth={auth} user={user} theme={theme} setTheme={setTheme} />
-        <Routes>
-          <Route path='/login' element={auth ? <Navigate to="/home" replace /> : <Auth login={true} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} theme={theme} />} />
-          <Route path="/" element={<Navigate to="/home" replace />} />
-          <Route path="/CSCI426Project" element={<Navigate to="/home" replace />} />
-          <Route path="/home" element={<Home auth={auth} stockList={stockList} theme={theme} />} />
-          <Route path='/logout' element={<Logout setAuth={setAuth} setUser={setUser} />} />
-          <Route path='/register' element={<Auth login={false} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} theme={theme} />} />
-          <Route path='/userlist' element={authRoute(<UserList userList={userList} setUserList={setUserList} theme={theme} replaceUser={replaceUser} />, true)} />
-          <Route path='/stocks' element={authRoute(<Stocks user={user} stockList={stockList} setUser={setUser} replaceUser={replaceUser} theme={theme} />, false)} />
-          <Route path='/profile' element={authRoute(<Profile user={user} stockList={stockList} setUser={setUser} userList={userList} setUserList={setUserList} replaceUser={replaceUser} />, false)} />
-        </Routes>
-      </Router>
-    </div>
+    <ThemeContext.Provider value={{ theme, setTheme }}>
+      <div className={"App " + theme}>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+        <Router>
+          <NavBar auth={auth} user={user} />
+          <Routes>
+            <Route path='/login' element={auth ? <Navigate to="/home" replace /> : <Auth login={true} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} />} />
+            <Route path="/" element={<Navigate to="/home" replace />} />
+            <Route path="/CSCI426Project" element={<Navigate to="/home" replace />} />
+            <Route path="/home" element={<Home auth={auth} stockList={stockList} />} />
+            <Route path='/logout' element={<Logout setAuth={setAuth} setUser={setUser} />} />
+            <Route path='/register' element={<Auth login={false} auth={auth} setAuth={setAuth} userList={userList} setUserList={setUserList} user={user} setUser={setUser} />} />
+            <Route path='/userlist' element={authRoute(<UserList userList={userList} setUserList={setUserList} replaceUser={replaceUser} />, true)} />
+            <Route path='/stocks' element={authRoute(<Stocks user={user} stockList={stockList} setUser={setUser} replaceUser={replaceUser} />, false)} />
+            <Route path='/profile' element={authRoute(<Profile user={user} stockList={stockList} setUser={setUser} userList={userList} setUserList={setUserList} replaceUser={replaceUser} />, false)} />
+          </Routes>
+        </Router>
+      </div>
+    </ThemeContext.Provider>
   );
 }
 
