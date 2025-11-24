@@ -1,6 +1,7 @@
 # StockEx – CSCI426 Stock Trading Project
 
 A simple, educational stock trading simulation app where you can explore real-world stocks, sort, search, buy, sell, and manage users—all with a clean UI built using React.
+The demo-website is hosted on [github pages](https://liuyousefkahwaji.github.io/CSCI426Project/). Due to the nature of github pages, some errors may be faced. Running the app locally would be better. Note that refreshing the github pages site will cause an error. Enter the link again to fix it.
 
 ## Features
 
