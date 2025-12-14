@@ -4,6 +4,7 @@
 	width: 100%;
 	text-align: center;
 	color: #2563eb;
+	max-height: 85vh; 
 }
 
 .user-list h1 {
@@ -68,7 +69,7 @@
 .user-table {
 	color: #2563eb;
 	position: fixed;
-	width: 97%;
+	width: 97vw;
 	border: 1px solid #f3f3f3;
 	border-radius: 8px;
 	box-shadow: 0 4px 24px rgba(0,0,0,0.1);

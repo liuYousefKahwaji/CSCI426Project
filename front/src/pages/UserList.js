@@ -1,8 +1,10 @@
 import '../styles/UserList.css';
 import { useState, useContext } from 'react';
 import ThemeContext from '../context/ThemeContext';
+import axios from 'axios';
+import { useEffect } from 'react';
 
-function UserList({ userList, setUserList, replaceUser }) {
+function UserList({ userList, setUserList, replaceUser, fetchUsers }) {
     const [selected, setSelected] = useState([]);
     const { theme } = useContext(ThemeContext);
 
@@ -27,34 +29,47 @@ function UserList({ userList, setUserList, replaceUser }) {
     };
 
     // delete selected users
-    const deleteSelected = () => {
+    const deleteUser = async (id) => {
+        try {
+            await axios.delete(`http://localhost:5000/userlist/${id}`);
+            await fetchUsers();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
+    const deleteSelected = async () => {
         if (selected.length === 0) return;
         if (!window.confirm(`Delete ${selected.length} user(s)?`)) return;
-        const newList = userList.filter((_, i) => !selected.includes(i));
-        setUserList(newList);
-        setSelected([]);
+        try {
+            const userIds = selected.map(index => userList[index].id);
+            await Promise.all(userIds.map(id => deleteUser(id)));
+            setSelected([]);
+        } catch (e) {
+            console.log("Error deleting user(s).")
+        }
     };
 
     const selectCount = selected.length;
     const nonAdminCount = userList.filter(u => !u.admin).length;
 
     return (
-        <div className={"user-list "+theme}>
+        <div className={"user-list " + theme}>
             <h1>User List (Admin Only)</h1>
             <ul className="user-controls">
-               <li> <button 
-                    className="btn-select-all" 
+                <li> <button
+                    className="btn-select-all"
                     onClick={toggleSelectAll}
                     disabled={nonAdminCount === 0}
                 >
                     {selectCount === nonAdminCount && nonAdminCount > 0 ? 'Deselect All' : 'Select All'}
                 </button></li>
                 <li>
-                <span className="selection-count">
-                    {selectCount} selected
-                </span></li>
-                <li><button 
-                    className="btn-delete-selected" 
+                    <span className="selection-count">
+                        {selectCount} selected
+                    </span></li>
+                <li><button
+                    className="btn-delete-selected"
                     onClick={deleteSelected}
                     disabled={selectCount === 0}
                 >
@@ -65,7 +80,7 @@ function UserList({ userList, setUserList, replaceUser }) {
                 <thead>
                     <tr>
                         <th className="checkbox-col">
-                            <input 
+                            <input
                                 type="checkbox"
                                 checked={selectCount === nonAdminCount && nonAdminCount > 0}
                                 onChange={toggleSelectAll}
@@ -84,7 +99,7 @@ function UserList({ userList, setUserList, replaceUser }) {
                         userList.map((user, index) => (
                             <tr key={index} className={selected.includes(index) ? 'selected' : ''}>
                                 <td className="checkbox-col">
-                                    <input 
+                                    <input
                                         type="checkbox"
                                         checked={selected.includes(index)}
                                         onChange={() => toggleSelect(index)}
@@ -94,19 +109,18 @@ function UserList({ userList, setUserList, replaceUser }) {
                                 <td>{user.name}</td>
                                 <td>{user.pass}</td>
                                 <td>{user.admin ? 'Admin' : 'User'}</td>
-                                <td><button style={{padding:'8px 10px', width:'35%'}} disabled={user.admin} onClick={()=>{
+                                <td><button style={{ padding: '8px 10px', width: '35%' }} disabled={user.admin} onClick={() => {
                                     const newVal = parseFloat(prompt("Enter new Wallet value: "))
-                                    if(!newVal || newVal<0) return;
-                                    const changedUser = {...user, wallet:newVal};
-                                    replaceUser(changedUser);
+                                    if (!newVal || newVal < 0) return;
+                                    const changedUser = { ...user, wallet: newVal };
+                                    replaceUser(changedUser,false);
                                 }}>{user.wallet.toFixed(2)}$</button></td>
                                 <td>
-                                    <button 
-                                        style={{background: user.admin ? 'gray' : 'red', color:'white'}}
-                                        disabled={user.admin} 
+                                    <button
+                                        style={{ background: user.admin ? 'gray' : 'red', color: 'white' }}
+                                        disabled={user.admin}
                                         onClick={() => {
-                                            const newList = userList.filter((_, i) => i !== index);
-                                            setUserList(newList);
+                                            deleteUser(user.id);
                                             const adjusted = selected
                                                 .filter(i => i !== index)
                                                 .map(i => (i > index ? i - 1 : i));

@@ -1,37 +1,69 @@
 import { useEffect, useState, useContext } from 'react'
+import axios from 'axios'
 import '../styles/Profile.css'
 import ThemeContext from '../context/ThemeContext'
 
-function Profile({ user, stockList, setUser, replaceUser }) {
+function Profile({ user, stockList, setUser, replaceUser, holdingList, fetchUsers }) {
     const [portfolioValue, setPortfolioValue] = useState(0.0);
     const [userStocks, setUserStocks] = useState([]);
     const { theme } = useContext(ThemeContext);
-    // calc portfolio value
-    useEffect(() => {
-        let total = 0.0;
-        let tempList = [];
-        if (user.stocks && Array.isArray(user.stocks) && user.stocks.length > 0) {
-            for (const holding of user.stocks) {
-                const stockIndex = holding.i;
-                const quantity = holding.q;
-                tempList = [...tempList, stockList[stockIndex]];
-                const currentPrice = stockList[stockIndex].price;
-                total += currentPrice * quantity;
+    const profileSrc = user && user.profile ? (user.profile.startsWith('http') ? user.profile : `http://localhost:5000${user.profile}`) : null;
+
+    function selectImage() {
+        if(user.profile!==''){
+            const confirmChange = window.confirm("You already have a profile image. Do you want to reset it?");
+            if (!confirmChange) return;
+            replaceUser({ ...user, profile: '' });
+            fetchUsers();
+            return;
+        }
+        const input = document.createElement('input');
+        input.type = 'file';
+        input.accept = 'image/*';
+        input.onchange = async (event) => {
+            const file = event.target.files[0];
+            if (file) {
+                const form = new FormData();
+                form.append('profile', file);
+                try {
+                    const res = await axios.post(`http://localhost:5000/userlist/${user.id}/profile`, form);
+                    const profileUrl = res.data.profile===null?'':`http://localhost:5000${res.data.profile}`;
+                    const updatedUser = { ...user, profile: profileUrl };
+                    setUser(updatedUser);
+                    fetchUsers();
+                } catch (e) {
+                    console.log('Error uploading profile image', e);
+                    alert('Failed to save profile image.');
+                }
             }
-            setPortfolioValue(total);
-            setUserStocks(tempList);
-        } else setUserStocks([]);
-    }, [user.stocks, stockList]);
+        };
+        input.click();
+    }
+
+    // calc portfolio value and set user stocks from holdings
+    useEffect(() => {
+        if (!holdingList || !user.id) return;
+        
+        const filteredHoldings = holdingList.filter((i) => i.id === user.id);
+        setUserStocks(filteredHoldings);
+        
+        let total = 0.0;
+        filteredHoldings.forEach((e) => {
+            total += e.quantity * e.price;
+        });
+        setPortfolioValue(total);
+    }, [holdingList, user.id]);
 
     // value display component
-    function ValueComp({ title, value, children }) {
+    function ValueComp({ title, value, children }){
+        const displayValue = value !== undefined && value !== null ? value : 0;
         return <div className='value'>
             <h3 style={{
                 textAlign: 'left', padding: '10px', paddingLeft: '30px', fontSize: '18px', color: 'gray', paddingBottom: '0'
             }}>{title} Value </h3>
             <h1 style={{
                 textAlign: 'left', padding: '10px', paddingLeft: '30px', fontSize: '40px', fontWeight: 'bold', paddingTop: '0', paddingBottom: '0', marginBottom: '10px'
-            }}>${value.toFixed(2)}</h1>
+            }}>${displayValue.toFixed(2)}</h1>
             {children}
         </div>
     }
@@ -57,7 +89,6 @@ function Profile({ user, stockList, setUser, replaceUser }) {
                 return;
             }
             const updatedUser = { ...user, wallet: newWalletValue };
-            setUser(updatedUser);
             replaceUser(updatedUser)
         } else if (change === "pass") {
             const newPassword = prompt("Enter new password:");
@@ -65,7 +96,6 @@ function Profile({ user, stockList, setUser, replaceUser }) {
                 return;
             }
             const updatedUser = { ...user, pass: newPassword };
-            setUser(updatedUser);
             replaceUser(updatedUser);
         }
     }
@@ -73,17 +103,20 @@ function Profile({ user, stockList, setUser, replaceUser }) {
     return (
         <div className={"profile " + theme}>
             <div className="personal pgriditem">
-                <div className='orb'>{user.name.toUpperCase()[0]}</div>
+                <div className='orb' onClick={selectImage}>
+                    {!profileSrc && <span className='orb-initial'>{user.name.toUpperCase()[0]}</span>}
+                    {profileSrc && <img src={profileSrc} alt='User Image' className={'orb-img '+theme+"Accent"} style={{borderStyle: 'none', borderColor: 'transparent'}}/>}
+                </div>
                 <div className='info'>
                     <h1>Welcome {user.name}!</h1>
                     <h3>Tier: {user.admin ? 'Admin' : 'Basic'}</h3>
                 </div>
-                <button onClick={() => prompted('pass')} style={{ color: 'white' }}>Change Password</button>
+                <button onClick={() => prompted('pass')} style={{ color: 'white' , cursor: 'pointer'}}>Change Password</button>
             </div>
             <div className="values pgriditem">
                 <ValueComp title={'Wallet'} value={user.wallet}><button style={{ float: 'left', marginLeft: '30px', padding: '12px', color: 'white' }} onClick={() => prompted('wallet')}>Deposit</button></ValueComp>
                 <ValueComp title={'Portfolio'} value={portfolioValue} />
-                <ValueComp title={'Total'} value={user.wallet + portfolioValue} />
+                <ValueComp title={'Total'} value={(user.wallet || 0) + portfolioValue} />
             </div>
             <h1>Your Portfolio</h1>
             <div className="portfolio pgriditem">
@@ -91,10 +124,10 @@ function Profile({ user, stockList, setUser, replaceUser }) {
                     userStocks.length !== 0 ? userStocks.map((item, index) => <li key={index} className='gridListItem'>
                         <div className='leftLi'>
                             <h3>{item.company}</h3>
-                            <h4>{item.ticker} • {user.stocks[index].q} {user.stocks[index].q>1?'shares':'share'}</h4>
+                            <h4>{item.ticker} • {item.quantity} {item.quantity>1?'shares':'share'}</h4>
                         </div>
                         <div className='rightLi'>
-                            <h4>${(user.stocks[index].q * item.price).toFixed(2)}</h4>
+                            <h4>${(item.quantity * item.price).toFixed(2)}</h4>
                             <h5>SP: ${item.price}</h5>
                         </div>
                     </li>) : <li className='gridListEmpty' style={{textAlign:'left'}}>Your portfolio is empty. Start buying stocks!</li>

@@ -1,0 +1,344 @@
+.admin-requests {
+    width: 100vw;
+    height: calc(100vh - 8vh);
+    padding: 40px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.admin-requests-container {
+    width: 100%;
+    max-width: 700px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin-top: 40px;
+}
+
+.dark .admin-requests-container {
+    background-color: #181a1b;
+}
+
+.admin-requests-container h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 30px;
+    text-align: center;
+    color: #2563eb;
+}
+
+.request-selector {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.request-selector label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.dark .request-selector label {
+    color: #e0e0e0;
+}
+
+.request-select {
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.dark .request-select {
+    background-color: #1e2021;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+.request-select:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.request-details {
+    background-color: #f5f7fa;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.dark .request-details {
+    background-color: #1e2021;
+}
+
+.request-details h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: #2563eb;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.dark .detail-row {
+    border-bottom-color: #333;
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-label {
+    font-weight: 600;
+    color: #666;
+}
+
+.dark .detail-label {
+    color: #999;
+}
+
+.detail-value {
+    color: #333;
+    text-align: right;
+}
+
+.dark .detail-value {
+    color: #e0e0e0;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 15px;
+}
+
+.approve-btn,
+.decline-btn {
+    flex: 1;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.approve-btn {
+    background-color: #10b981;
+    color: white;
+}
+
+.approve-btn:hover:not(:disabled) {
+    background-color: #059669;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
+}
+
+.decline-btn {
+    background-color: #ef4444;
+    color: white;
+}
+
+.decline-btn:hover:not(:disabled) {
+    background-color: #dc2626;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+.approve-btn:disabled,
+.decline-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* Stock Form Styles */
+.stock-form {
+    width: 100vw;
+    height: calc(100vh - 8vh);
+    padding: 40px;
+    box-sizing: border-box;
+    overflow-y: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.stock-form-container {
+    width: 100%;
+    max-width: 600px;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin-top: 40px;
+}
+
+.dark .stock-form-container {
+    background-color: #181a1b;
+}
+
+.stock-form-container h1 {
+    font-size: 32px;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+    color: #2563eb;
+}
+
+.form-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    font-size: 14px;
+}
+
+.dark .form-subtitle {
+    color: #999;
+}
+
+.stock-form-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.stock-form-inputs .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.stock-form-inputs .form-group label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #333;
+}
+
+.dark .stock-form-inputs .form-group label {
+    color: #e0e0e0;
+}
+
+.stock-form-inputs .form-input {
+    padding: 12px 16px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: white;
+    color: #333;
+    transition: border-color 0.3s;
+}
+
+.dark .stock-form-inputs .form-input {
+    background-color: #1e2021;
+    border-color: #444;
+    color: #e0e0e0;
+}
+
+.stock-form-inputs .form-input:focus {
+    outline: none;
+    border-color: #2563eb;
+}
+
+.stock-form-inputs .form-input.disabled {
+    background-color: #f5f7fa;
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.dark .stock-form-inputs .form-input.disabled {
+    background-color: #2a2d2e;
+}
+
+.stock-form-inputs .form-hint {
+    font-size: 12px;
+    color: #666;
+    margin-top: -4px;
+}
+
+.dark .stock-form-inputs .form-hint {
+    color: #999;
+}
+
+.form-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.cancel-btn,
+.stock-form-inputs .submit-btn {
+    flex: 1;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cancel-btn {
+    background-color: #6b7280;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background-color: #4b5563;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(107, 114, 128, 0.3);
+}
+
+.stock-form-inputs .submit-btn {
+    background-color: #2563eb;
+    color: white;
+}
+
+.dark .stock-form-inputs .submit-btn {
+    background-color: #3b82f6;
+}
+
+.stock-form-inputs .submit-btn:hover {
+    background-color: #1f53c7;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+@media (max-width: 768px) {
+    .admin-requests,
+    .stock-form {
+        padding: 20px;
+    }
+
+    .admin-requests-container,
+    .stock-form-container {
+        padding: 24px;
+        margin-top: 20px;
+    }
+
+    .admin-requests-container h1,
+    .stock-form-container h1 {
+        font-size: 24px;
+    }
+
+    .action-buttons,
+    .form-actions {
+        flex-direction: column;
+    }
+}
+

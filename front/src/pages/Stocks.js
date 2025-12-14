@@ -1,17 +1,77 @@
 import { useState, useContext } from 'react';
 import '../styles/Stocks.css';
 import ThemeContext from '../context/ThemeContext';
+import axios from 'axios';
 
-function Stocks({ user, stockList, setUser, replaceUser }) {
+function Stocks({ user, stockList, setUser, replaceUser, holdingList, fetchHoldings }) {
     const [searchTerm, setSearchTerm] = useState('');
     const [sortColumn, setSortColumn] = useState(null);
     const [sortDirection, setSortDirection] = useState('asc');
     const { theme } = useContext(ThemeContext);
 
-    const getOwnedQuantity = (stockIndex) => {
-        if (!user.stocks || !Array.isArray(user.stocks)) return 0;
-        const holding = user.stocks.find(s => s.i === stockIndex);
-        return holding ? holding.q : 0;
+    const insertHolding = async (stock, quantity) => {
+        try {
+            const holdingData = new FormData();
+            holdingData.append('user_id', user.id);
+            holdingData.append('stock_ticker', stock.ticker);
+            holdingData.append('quantity', quantity);
+            await axios.post('http://localhost:5000/holdings', holdingData);
+            await fetchHoldings();
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const insertTransaction = async (ticker, transactionType, quantity, price) => {
+        try {
+            const transactionData = new FormData();
+            transactionData.append('user_id', user.id);
+            transactionData.append('ticker', ticker);
+            transactionData.append('transaction_type', transactionType);
+            transactionData.append('quantity', quantity);
+            transactionData.append('price', price);
+            await axios.post('http://localhost:5000/transactions', transactionData);
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    const updateHolding = async (holdingId, quantity) => {
+        try {
+            const holdingData = new FormData();
+            holdingData.append('quantity', quantity);
+            await axios.put(`http://localhost:5000/holdings/${holdingId}`, holdingData);
+            await fetchHoldings();
+        }catch (err) {
+            console.log(err);
+        }
+    };
+
+    // delete holding
+    const deleteHolding = async (holding_id) => {
+        try {
+            await axios.delete(`http://localhost:5000/holdings/${holding_id}`);
+            await fetchHoldings();
+        }
+        catch (err) {
+            console.log(err);
+        }
+    };
+
+    const getOwnedQuantity = (ticker) => {
+        let holding = 0;
+        holdingList.map((e) => {
+            if (e.id === user.id && ticker === e.ticker) holding = e.quantity;
+        })
+        return holding;
+    };
+
+    const getHoldingId = (ticker) => {
+        let holdingId = -1;
+        holdingList.map((e) => {
+            if (e.id === user.id && ticker === e.ticker) holdingId = e.holding_id;
+        })
+        return holdingId;
     };
 
     // toggle sort
@@ -50,8 +110,8 @@ function Stocks({ user, stockList, setUser, replaceUser }) {
                 return b.change - a.change;
             }
             if (sortColumn === 'owned') {
-                const aOwned = getOwnedQuantity(stockList.indexOf(a));
-                const bOwned = getOwnedQuantity(stockList.indexOf(b));
+                const aOwned = getOwnedQuantity(a.ticker);
+                const bOwned = getOwnedQuantity(b.ticker);
                 if (sortDirection === 'asc') return aOwned - bOwned;
                 return bOwned - aOwned;
             }
@@ -60,10 +120,8 @@ function Stocks({ user, stockList, setUser, replaceUser }) {
     }
 
     // buy stock
-    const handleBuy = (stockIndex) => {
-        const stock = stockList[stockIndex];
+    const handleBuy = async (stock) => {
         const quantity = prompt(`How many shares of ${stock.ticker} would you like to buy?`);
-
         if (quantity === null || quantity.trim() === '') return;
 
         const qty = parseInt(quantity);
@@ -78,38 +136,45 @@ function Stocks({ user, stockList, setUser, replaceUser }) {
             return;
         }
 
-        const updatedStocks = [...(user.stocks || [])];
-        const existingIndex = updatedStocks.findIndex(s => s.i === stockIndex);
+        const doubleCheck = () => {
+            if (window.confirm(`Are you sure you want to buy ${qty} share(s) of ${stock.ticker} for ${totalCost.toFixed(2)}?`)) {
+                return true;
+            }
+            return false;
+        }
 
-        if (existingIndex >= 0) {
-            updatedStocks[existingIndex].q += qty;
-        } else {
-            updatedStocks.push({ i: stockIndex, q: qty });
+        const holdingId = getHoldingId(stock.ticker);
+        if (holdingId === -1) {
+            //insert new holding
+            if (doubleCheck()) {
+                await insertHolding(stock, qty);
+                await insertTransaction(stock.ticker, 'BUY', qty, stock.price);
+            } else {
+                return;
+            }
+        }
+        else {
+            //update existing holding
+            if (doubleCheck()) {
+                const qty1 = qty + getOwnedQuantity(stock.ticker);
+                await updateHolding(holdingId, qty1);
+                await insertTransaction(stock.ticker, 'BUY', qty, stock.price);
+            } else {
+                return;
+            }
         }
 
         const updatedUser = {
             ...user,
-            wallet: user.wallet - totalCost,
-            stocks: updatedStocks
+            wallet: user.wallet - totalCost
         };
-
-        setUser(updatedUser);
         replaceUser(updatedUser);
         alert(`Successfully bought ${qty} share(s) of ${stock.ticker}!`);
     };
 
     // sell stock
-    const handleSell = (stockIndex) => {
-        const stock = stockList[stockIndex];
-        const owned = getOwnedQuantity(stockIndex);
-
-        if (owned === 0) {
-            alert(`You don't own any shares of ${stock.ticker}.`);
-            return;
-        }
-
-        const quantity = prompt(`How many shares of ${stock.ticker} would you like to sell? (You own ${owned})`);
-
+    const handleSell = async (stock) => {
+        const quantity = prompt(`How many shares of ${stock.ticker} would you like to sell?`);
         if (quantity === null || quantity.trim() === '') return;
 
         const qty = parseInt(quantity);
@@ -118,30 +183,41 @@ function Stocks({ user, stockList, setUser, replaceUser }) {
             return;
         }
 
-        if (qty > owned) {
-            alert(`You only own ${owned} share(s) of ${stock.ticker}.`);
-            return;
+        const totalCost = stock.price * qty;
+
+        const doubleCheck = () => {
+            if (window.confirm(`Are you sure you want to sell ${qty} share(s) of ${stock.ticker} for ${totalCost.toFixed(2)}?`)) {
+                return true;
+            }
+            return false;
         }
 
-        const totalValue = stock.price * qty;
-
-        const updatedStocks = [...(user.stocks || [])];
-        const existingIndex = updatedStocks.findIndex(s => s.i === stockIndex);
-
-        if (existingIndex >= 0) {
-            updatedStocks[existingIndex].q -= qty;
-            if (updatedStocks[existingIndex].q === 0) {
-                updatedStocks.splice(existingIndex, 1);
+        const holdingId = getHoldingId(stock.ticker);
+        const owned = getOwnedQuantity(stock.ticker);
+        if (owned < qty) {
+            alert('Insufficient shares to sell.');
+            return;
+        } else if (owned === qty) {
+            if(doubleCheck()) {
+                await deleteHolding(holdingId);
+                await insertTransaction(stock.ticker, 'SELL', qty, stock.price);
+            } else {
+                return;
+            }
+        } else {
+            if(doubleCheck()) {
+                const qty1 = owned - qty;
+                await updateHolding(holdingId, qty1);
+                await insertTransaction(stock.ticker, 'SELL', qty, stock.price);
+            } else {
+                return;
             }
         }
 
         const updatedUser = {
             ...user,
-            wallet: user.wallet + totalValue,
-            stocks: updatedStocks
+            wallet: user.wallet + totalCost
         };
-
-        setUser(updatedUser);
         replaceUser(updatedUser);
         alert(`Successfully sold ${qty} share(s) of ${stock.ticker}!`);
     };
@@ -176,31 +252,31 @@ function Stocks({ user, stockList, setUser, replaceUser }) {
                 <table className="stocks-table">
                     <thead>
                         <tr>
-                            <th 
+                            <th
                                 onClick={() => handleSort('company')}
                                 style={{ cursor: 'pointer', userSelect: 'none' }}
                             >
                                 Company {sortColumn === 'company' && (sortDirection === 'asc' ? '↑' : '↓')}
                             </th>
-                            <th 
+                            <th
                                 onClick={() => handleSort('ticker')}
                                 style={{ cursor: 'pointer', userSelect: 'none' }}
                             >
                                 Ticker {sortColumn === 'ticker' && (sortDirection === 'asc' ? '↑' : '↓')}
                             </th>
-                            <th 
+                            <th
                                 onClick={() => handleSort('price')}
                                 style={{ cursor: 'pointer', userSelect: 'none' }}
                             >
                                 Price {sortColumn === 'price' && (sortDirection === 'asc' ? '↑' : '↓')}
                             </th>
-                            <th 
+                            <th
                                 onClick={() => handleSort('change')}
                                 style={{ cursor: 'pointer', userSelect: 'none' }}
                             >
                                 Change {sortColumn === 'change' && (sortDirection === 'asc' ? '↑' : '↓')}
                             </th>
-                            <th 
+                            <th
                                 onClick={() => handleSort('owned')}
                                 style={{ cursor: 'pointer', userSelect: 'none' }}
                             >
@@ -211,7 +287,7 @@ function Stocks({ user, stockList, setUser, replaceUser }) {
                     </thead>
                     <tbody>
                         {displayStocks.map((stock, index) => {
-                            const stockIndex = stockList.indexOf(stock);
+                            const stockIndex = stock.ticker;
                             const owned = getOwnedQuantity(stockIndex);
                             const changeColor = stock.change >= 0 ? 'green' : 'red';
                             const changeSign = stock.change >= 0 ? '+' : '';
@@ -228,18 +304,18 @@ function Stocks({ user, stockList, setUser, replaceUser }) {
                                     <td className="actions-cell">
                                         <button
                                             className="buy-button"
-                                            onClick={() => handleBuy(stockIndex)}
+                                            onClick={() => handleBuy(stock)}
                                         >
                                             Buy
                                         </button>
                                         <button
                                             className={`sell-button ${owned === 0 ? 'disabled' : ''}`}
-                                            onClick={() => handleSell(stockIndex)}
+                                            onClick={() => handleSell(stock)}
                                             disabled={owned === 0}
                                         >
                                             Sell
                                         </button>
-                                        <a href={'https://www.tradingview.com/chart/?symbol='+stock.ticker} target="_blank">
+                                        <a href={'https://www.tradingview.com/chart/?symbol=' + stock.ticker} target="_blank">
                                             <button className={'chart-button'}>Chart</button>
                                         </a>
                                     </td>
