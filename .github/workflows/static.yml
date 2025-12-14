@@ -30,6 +30,8 @@ jobs:
       - name: Build React App (inside /front)
         working-directory: ./front
         run: npm run build
+        env: 
+          CI: false
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
