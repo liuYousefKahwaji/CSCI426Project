@@ -2,7 +2,6 @@ import '../styles/UserList.css';
 import { useState, useContext } from 'react';
 import ThemeContext from '../context/ThemeContext';
 import axios from 'axios';
-import { useEffect } from 'react';
 
 function UserList({ userList, setUserList, replaceUser, fetchUsers }) {
     const [selected, setSelected] = useState([]);

@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import '../styles/AdminRequests.css';
 import ThemeContext from '../context/ThemeContext';
 import axios from 'axios';
@@ -223,7 +223,7 @@ function StockForm({ request, onCancel, onSuccess }) {
             stockData.append('company', company.trim());
             stockData.append('ticker', ticker.trim().toUpperCase());
             stockData.append('price', price);
-            const response = await axios.post('http://localhost:5000/stocks', stockData);
+            await axios.post('http://localhost:5000/stocks', stockData);
             alert('Stock added successfully!');
             onSuccess();
         } catch (err) {

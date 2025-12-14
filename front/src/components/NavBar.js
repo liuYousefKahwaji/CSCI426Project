@@ -97,10 +97,10 @@ const finalNavList = navItems.filter(item => {
         <li className='navTitle'><Link to={'/home'} style={{textDecoration:'none'}}><h1>📈StockEx</h1></Link></li>
         {finalNavList.map((item, index) => (
           <li key={index} className={"navItem"} >
-            {!item.isDropdown?<Link style={{cursor: !auth&&item.name==='Stocks' ? 'not-allowed' : 'pointer'}} to={item.link}>{item.name}</Link>:<Dropdown links={item.subItems}>{item.name}</Dropdown>}
+            {!item.isDropdown?<Link style={{cursor: !auth&&item.name==='Stocks' ? 'not-allowed' : item.isDropdown?'default':'pointer'}} to={item.link}>{item.name}</Link>:<Dropdown links={item.subItems}>{item.name}</Dropdown>}
           </li>
         ))}
-        <li className={"navItem"} style={{cursor:'pointer'}} onClick={()=>setTheme(theme==='light'?'dark':'light')}><a>{theme==='light'?'⚪':'⚫'}</a></li>
+        <li className={"navItem"} style={{cursor:'pointer'}} onClick={()=>setTheme(theme==='light'?'dark':'light')}><p>{theme==='light'?'⚪':'⚫'}</p></li>
       </ul>
     </div>
 

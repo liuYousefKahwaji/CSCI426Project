@@ -80,7 +80,7 @@ function App() {
     if (user.id) {
       fetchRequests();
     }
-  }, [user.id])
+  })
 
   // check auth
   const authRoute = (Component, admin) => {

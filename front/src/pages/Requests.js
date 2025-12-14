@@ -1,4 +1,4 @@
-import { useState, useContext, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import '../styles/Requests.css';
 import ThemeContext from '../context/ThemeContext';
 import axios from 'axios';

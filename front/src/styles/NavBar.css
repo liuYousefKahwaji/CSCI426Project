@@ -39,7 +39,7 @@
         align-items: center;
 }
 
-.navItem a {
+.navItem a, .navItem p {
         text-decoration: none;
         padding: 0.8rem 1.3rem;
         border-radius: 10px;
@@ -48,18 +48,18 @@
         margin-right: 0.2rem;
 }
 
-.navItem a:hover {
+.navItem a:hover, .navItem p:hover {
         text-decoration: none;
         padding: 0.8rem 1.4rem;
         font-size: 18px;
         transition: 0.3s;
 }
 
-.light .navItem a:hover {
+.light .navItem a:hover, .light .navItem p:hover {
     background-color: #eeeeee;
 }
 
-.dark .navItem a:hover {
+.dark .navItem a:hover, .dark .navItem p:hover {
     background-color: #333333; 
 }
 

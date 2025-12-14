@@ -56,6 +56,10 @@ button {
   transition: 0.3s;
 }
 
+p{
+  margin: 0;
+}
+
 button:hover {
   transition: 0.3s;
   transform: scale(1.02);

@@ -105,7 +105,7 @@ function Profile({ user, stockList, setUser, replaceUser, holdingList, fetchUser
             <div className="personal pgriditem">
                 <div className='orb' onClick={selectImage}>
                     {!profileSrc && <span className='orb-initial'>{user.name.toUpperCase()[0]}</span>}
-                    {profileSrc && <img src={profileSrc} alt='User Image' className={'orb-img '+theme+"Accent"} style={{borderStyle: 'none', borderColor: 'transparent'}}/>}
+                    {profileSrc && <img src={profileSrc} alt='User' className={'orb-img '+theme+"Accent"} style={{borderStyle: 'none', borderColor: 'transparent'}}/>}
                 </div>
                 <div className='info'>
                     <h1>Welcome {user.name}!</h1>

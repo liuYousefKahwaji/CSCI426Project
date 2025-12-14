@@ -1,11 +1,11 @@
-import React, { Children, useContext, useState, useRef, useEffect } from 'react';
+import React, { useContext, useState, useRef, useEffect } from 'react';
 import '../styles/Dropdown.css';
 import { Link } from 'react-router-dom';
 import ThemeContext from '../context/ThemeContext';
 
 
 const Dropdown = ({links, children}) => {
-    const { theme, setTheme } = useContext(ThemeContext);
+    const { theme } = useContext(ThemeContext);
     const [isOpen, setIsOpen] = useState(false);
     const containerRef = useRef(null);
     const timeoutRef = useRef(null);
@@ -43,7 +43,7 @@ const Dropdown = ({links, children}) => {
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
         >
-            <a className="dropdown-toggle">{children}<span className="arrow-icon">▼</span></a>
+            <p className="dropdown-toggle" style={{cursor:'default'}}>{children}<span className="arrow-icon">▼</span></p>
             {isOpen && (
                 <ul className={"dropdown-menu "+theme}>
                     {links.map((link) => (

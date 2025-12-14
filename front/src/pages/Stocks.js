@@ -62,6 +62,7 @@ function Stocks({ user, stockList, setUser, replaceUser, holdingList, fetchHoldi
         let holding = 0;
         holdingList.map((e) => {
             if (e.id === user.id && ticker === e.ticker) holding = e.quantity;
+            return null;
         })
         return holding;
     };
@@ -70,6 +71,7 @@ function Stocks({ user, stockList, setUser, replaceUser, holdingList, fetchHoldi
         let holdingId = -1;
         holdingList.map((e) => {
             if (e.id === user.id && ticker === e.ticker) holdingId = e.holding_id;
+            return null;
         })
         return holdingId;
     };
@@ -315,7 +317,7 @@ function Stocks({ user, stockList, setUser, replaceUser, holdingList, fetchHoldi
                                         >
                                             Sell
                                         </button>
-                                        <a href={'https://www.tradingview.com/chart/?symbol=' + stock.ticker} target="_blank">
+                                        <a href={'https://www.tradingview.com/chart/?symbol=' + stock.ticker} target="_blank" rel="noreferrer">
                                             <button className={'chart-button'}>Chart</button>
                                         </a>
                                     </td>

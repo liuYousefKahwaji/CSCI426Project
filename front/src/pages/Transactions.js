@@ -26,7 +26,7 @@ function Transactions({ user, stockList }) {
         if (user.id) {
             fetchTransactions();
         }
-    }, [user.id]);
+    });
 
     // toggle sort
     const handleSort = (column) => {
