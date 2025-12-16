@@ -78,17 +78,18 @@ The demo-website is hosted on [github pages](https://liuyousefkahwaji.github.io/
    - In phpMyAdmin, create a database named "stockex" and import it from the sql file
    
 3. Install dependencies for each end if necessary:
-   ```cd back```
+   
+   -```cd back```
    ```npm install```
 
-   ```cd front```
+   -```cd front```
    ```npm install```
 
-4. Start the development server:
+5. Start the development server:
    ```cd back;npm start```
    ```cd front;npm start```
    
-5. Open your browser to [http://localhost:3000](http://localhost:3000)
+6. Open your browser to [http://localhost:3000](http://localhost:3000)
 
 ## File Structure
 
